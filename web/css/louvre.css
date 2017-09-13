@@ -1,0 +1,16 @@
+/* BODY */
+body{
+    color: white;
+    background-image: image('../images/bg_desktop.jpg');
+}
+
+.bgBlue{
+    background-color: #23C0D7;
+    padding: 1em !important;
+}
+/* Header */
+#logo {
+    margin: auto;
+    padding: 1em 0em;
+}
+
