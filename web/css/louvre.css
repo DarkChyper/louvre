@@ -24,6 +24,15 @@ input{
     width: 60% !important;
     background-color: rgba(255,255,255,0.1) !important;
 }
+input:focus{
+    border-bottom: solid 3px #23C0D7 !important;
+}
+
+input:not(empty), input:valid, input:checked{
+    border-bottom: solid 2px #23C0D7 !important;
+    -webkit-box-shadow: 0 0px 0 0 #23C0D7 !important;
+    box-shadow: 0 0px 0 0 #23C0D7 !important;
+}
 
 [type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
     background-color: #23C0D7 !important;

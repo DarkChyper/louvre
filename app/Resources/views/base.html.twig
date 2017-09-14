@@ -12,6 +12,10 @@
     <title>{% block title %}Billetterie du Louvre{% endblock title %}</title>
 
     {% block stylesheets %}
+
+        <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.structure.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.theme.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/louvre.css') }}">
     {% endblock stylesheets %}
@@ -36,7 +40,10 @@
         {% endblock %}
 
         {% block javascripts %}
-            <link rel="stylesheet" href="{{ asset('js/materialize.min.js') }}">
+            <script src="{{ asset('js/jquery/external/jquery/jquery.js') }}"></script>
+            <script src="{{ asset('js/jquery/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('js/materialize.min.js') }}"></script>
+
         {% endblock javascripts %}
 
 

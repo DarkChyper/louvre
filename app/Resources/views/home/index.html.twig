@@ -14,7 +14,7 @@
                 <h4 class="center">Date de votre venue</h4>
                 <hr />
                 <br />
-                <input id="date" type="text" class="validate center-block">
+                <input id="date" type="text" class="datepicker validate center-block">
                 <br />
 
                 <h4 class="center">Type de billet</h4>
@@ -62,3 +62,34 @@
         </div>
     </div>
 {% endblock body %}
+
+{% block javascripts %}
+    {{  parent() }}
+    <script>
+        jQuery(function($){
+            $.datepicker.regional['fr'] = {
+                closeText: 'Fermer',
+                prevText: '&#x3c;Préc',
+                nextText: 'Suiv&#x3e;',
+                currentText: 'Courant',
+                monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+                    'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+                monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
+                    'Jul','Aoû','Sep','Oct','Nov','Déc'],
+                dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+                dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+                dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+            $.datepicker.setDefaults($.datepicker.regional['fr']);
+        });
+    </script>
+
+    <script>
+        $( ".datepicker" ).datepicker(  { minDate: 0, maxDate: "+2Y", calendarWeeks: true, editable: true } , $.datepicker.regional[ "fr" ]);
+    </script>
+{% endblock javascripts %}
