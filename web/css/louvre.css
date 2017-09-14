@@ -1,12 +1,36 @@
 /* BODY */
 body{
     color: white;
-    background-image: image('../images/bg_desktop.jpg');
+    /*background-image: url(../images/bg_desktop.jpg);*/
 }
 
 .bgBlue{
     background-color: #23C0D7;
-    padding: 1em !important;
+    padding: 1em ;
+}
+
+hr{
+    width: 25%;
+    border: 0;
+    height: 1px;
+    color: white;
+    background-color: white;
+}
+
+input{
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 60% !important;
+    background-color: rgba(255,255,255,0.1) !important;
+}
+
+[type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
+    background-color: #23C0D7 !important;
+}
+
+[type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::before, .with-gap[type="radio"]:checked + label::after{
+    border: 2px solid #23C0D7 !important;
 }
 /* Header */
 #logo {

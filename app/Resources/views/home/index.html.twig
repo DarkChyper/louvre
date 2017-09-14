@@ -7,5 +7,58 @@
 {% endblock %}
 
 {% block body %}
+    <div id="body" class="container grey lighten-1">
+        <div class="row">
+            {# form col #}
+            <div class="col s12 m6" id="home_col_form">
+                <h4 class="center">Date de votre venue</h4>
+                <hr />
+                <br />
+                <input id="date" type="text" class="validate center-block">
+                <br />
 
+                <h4 class="center">Type de billet</h4>
+                <hr />
+
+                <br />
+                <p class="center">
+                    <input class="with-gap" name="group1" type="radio" id="full" />
+                    <label for="full">Journée complète</label>
+                </p>
+                <p class="center">
+                    <input class="with-gap" name="group1" type="radio" id="half"  />
+                    <label for="half">Demi Journée (à partir de 14h)</label>
+                </p>
+                <br />
+
+                <h4 class="center">Nombre de billet</h4>
+                <hr />
+
+                <br />
+                <div class="input-field col s12">
+                    <select>
+                        {% for n in range(1, 10) %}
+                        <option value="{{ n }}"> {{ n }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br />
+
+                <h4 class="center">Votre adresse mail</h4>
+                <hr />
+
+                <br />
+                <input id="date" type="text" class="validate center-block">
+                <br />
+            </div>
+            {# end form col #}
+
+            {# images col, hidden on smartphones #}
+            <div class="col hide-on-small-only m6" id="home_col_photos">
+                <img src="{{ asset('images/ext.jpg') }}" alt="La pyramide du Louvre" class="responsive-img" />
+                <img src="{{ asset('images/couloir.jpg') }}" alt="Un des couloirs d'exposition du musée" class="responsive-img" />
+            </div>
+            {# end images col #}
+        </div>
+    </div>
 {% endblock body %}

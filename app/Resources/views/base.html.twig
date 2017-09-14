@@ -18,19 +18,9 @@
 
 </head>
 <body>
-    <div class="container">
-        {% block header %}
-        <div class="row">
-            <div class="col s12">
-                <img id="logo" src="{{ asset('images/logo-louvre.jpg') }}" alt="logo-louvre" />
-            </div>
-            <div class="col s12 bgBlue">
-                <p>Le musée du Louvre est ouvert tous les jours, sauf les mardis et les 1 er janvier, 1 er mai et 25 décembre, de 9h à 18h, jusqu'à 21h45 les mercredis et vendredis, à l’exception des jours fériés. </p>
-                <p>La fermeture des salles débute à 17h30 et à 21h30 les mercredis et vendredis</p>
-                <p class="red-text text-darken-3" >Ce site est un projet étudiant et n'a <strong>aucun lien avec le musée du louvre</strong>.</p>
-            </div>
-        </div>
 
+        {% block header %}
+            {% include('commons/header.html.twig') %}
         {% endblock %}
 
         {% block messagesFlash %}
@@ -48,7 +38,7 @@
         {% block javascripts %}
             <link rel="stylesheet" href="{{ asset('js/materialize.min.js') }}">
         {% endblock javascripts %}
-    </div>
+
 
 </body>
 </html>
