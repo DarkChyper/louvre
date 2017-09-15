@@ -38,14 +38,6 @@ class Ticket
 
     /**
      * @var string
-     * @ORM\Column(name="type", type="string", length=4)
-     * @Assert\NotBlank()
-     *
-     */
-    protected $type;
-
-    /**
-     * @var string
      * @ORM\Column(name="name", type="string", length=30)
      * @Assert\NotBlank()
      */
@@ -119,22 +111,6 @@ class Ticket
     public function setOrder($order)
     {
         $this->order = $order;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 
     /**
@@ -218,3 +194,5 @@ class Ticket
     }
 
 }
+
+

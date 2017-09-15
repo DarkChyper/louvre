@@ -21,3 +21,7 @@ jQuery(function($){
 });
 
 $( ".datepicker" ).datepicker(  { minDate: 0, maxDate: "+2Y", calendarWeeks: true, editable: true } , $.datepicker.regional[ "fr" ]);
+
+
+
+

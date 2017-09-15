@@ -61,6 +61,14 @@ class Order
     protected $ticketNumber;
 
     /**
+     * @var string
+     * @ORM\Column(name="ticket_type", type="string", length=4)
+     * @Assert\NotBlank()
+     *
+     */
+    protected $ticketType;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="order")
      */
     protected $tickets;
@@ -163,6 +171,22 @@ class Order
     public function setTicketNumber($ticketNumber)
     {
         $this->ticketNumber = $ticketNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTicketType()
+    {
+        return $this->ticketType;
+    }
+
+    /**
+     * @param string $ticketType
+     */
+    public function setTicketType($ticketType)
+    {
+        $this->ticketType = $ticketType;
     }
 
     /**

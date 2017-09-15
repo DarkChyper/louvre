@@ -1,0 +1,53 @@
+{# app/Resources/views/home/forms/orderForm.html.twig #}
+
+{{ form_start(orderForm) }}
+<div class="col s12 m6" id="home_col_form">
+    <h4 class="center">Date de votre venue</h4>
+    <hr />
+    <br />
+    {{ form_widget(orderForm.visitDate, {
+        'attr': {
+            'class': 'datepicker validate center-block',
+            'onchange': 'isFullDayEnable()'
+                }
+        })
+    }}
+    <br />
+
+    <h4 class="center">Type de billet</h4>
+    <hr />
+
+    <br />
+    {{ form_widget(orderForm.ticketType, {
+        'attr': {
+            'class': 'with-gap',
+        }
+    })
+    }}
+
+    <br />
+
+    <h4 class="center">Nombre de billet</h4>
+    <hr />
+
+    <br />
+    <div class="input-field col s12">
+        {{ form_widget(orderForm.ticketNumber)
+        }}
+    </div>
+    <br />
+
+    <h4 class="center">Votre adresse mail</h4>
+    <hr />
+
+    <br />
+    {{ form_widget(orderForm.mailContact, {
+        'attr': {
+            'class': 'validate center-block',
+        }
+    })
+    }}
+    <br />
+</div>
+{{ form_end(orderForm) }}
+
