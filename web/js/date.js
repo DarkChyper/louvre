@@ -28,7 +28,7 @@ function isFullDayEnable() {
 function setDateObject($dateFR){
     var $dateObject = new Date();
     $dateObject.setFullYear($dateFR.substr(6,4));
-    $dateObject.setMonth($dateFR.substr(3,2));
+    $dateObject.setMonth($dateFR.substr(3,2)-1);
     $dateObject.setDate($dateFR.substr(0,2));
 
     console.info( $dateObject.getDate() + "/" + $dateObject.getMonth() + "/" +$dateObject.getFullYear());
