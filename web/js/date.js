@@ -5,12 +5,32 @@ function isFullDayEnable() {
     if($inputDate !== 'undefined' && $inputDate !== ""){
         var $dateObject = setDateObject($inputDate);
         var $now = new Date();
+        var $btnSuivant = document.getElementById("order_suivant");
         var $inputFull = document.getElementById("order_ticketType_0");
+        var $inputHalf = document.getElementById("order_ticketType_1");
+        var $blockInfos = document.getElementById("blockInfos");
 
-        if( isToday($dateObject, $now) && $now.getHours() >= 13) {
+        console.info("getDay : " + $dateObject.getDay());
+        if($dateObject.getDay() === 2 || $dateObject.getDay() === 4){
+            // if date is sunday or tuesday
+            console.info("dimanche ou mardi");
+            $inputFull.disabled = true;
+            $inputFull.checked = false;
+            $inputHalf.disabled = true;
+            $inputHalf.checked = false;
+            $btnSuivant.disabled = true;
+            $blockInfos.className = "card bgRed center";
+            return; // no need more test
 
-            var $inputHalf = document.getElementById("order_ticketType_1");
+        } else {
+            $inputFull.disabled = false;
+            $inputHalf.disabled = false;
+            $btnSuivant.disabled = false;
+            $blockInfos.className = "invisible";
+        }
 
+        if( isToday($dateObject, $now) && $now.getHours() >= 14) {
+            // no order for full day after 2pm the same day
             $inputFull.disabled = true;
             $inputFull.checked = false;
             $inputHalf.checked = true;

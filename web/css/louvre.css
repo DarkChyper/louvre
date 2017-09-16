@@ -4,26 +4,58 @@ body{
     /*background-image: url(../images/bg_desktop.jpg);*/
 }
 
-.bgBlue{
+.invisible{
+    display: none;
+}
+
+.bgBlue, .bgBlue:hover{
     background-color: #23C0D7;
-    padding: 1em ;
+}
+
+
+
+.card-success, .card-success:hover{
+    background-color: #4CAF50 !important;
+}
+
+.card-error, .card-error:hover{
+    background-color: #c82d00 !important;
+}
+
+.card-info, .card-info:hover{
+    background-color: #23C0D7 !important;
+}
+
+.card-warning, .card-warning:hover{
+    background-color: #FFB300 !important;
+}
+
+.txt-red{
+    color: #c82d00;
+}
+
+.border-dark-red{
+    border: solid 4px #331107 !important;
 }
 
 hr{
     width: 25%;
+    line-height: 1 !important;
     border: 0;
     height: 1px;
     color: white;
     background-color: white;
+    margin-bottom: 2em !important;
 }
 
-input{
+input, select{
     display: block !important;
     margin-left: auto !important;
     margin-right: auto !important;
     width: 60% !important;
     background-color: rgba(255,255,255,0.1) !important;
 }
+
 input:focus{
     border-bottom: solid 3px #23C0D7 !important;
 }
@@ -34,6 +66,24 @@ input:not(empty), input:valid, input:checked{
     box-shadow: 0 0px 0 0 #23C0D7 !important;
 }
 
+select{
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: solid 2px #23C0D7 !important;
+    color: black !important;
+
+}
+
+label{
+    color:white !important;
+}
+
+[type="radio"]:disabled+label{
+    color: darkgrey !important;
+    font-style: italic !important;
+}
+
 [type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
     background-color: #23C0D7 !important;
 }
@@ -41,9 +91,32 @@ input:not(empty), input:valid, input:checked{
 [type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::before, .with-gap[type="radio"]:checked + label::after{
     border: 2px solid #23C0D7 !important;
 }
+
+.line_form{
+    display: block;
+    margin: auto;
+    min-height: 150px;
+}
+
+.line_form+.line_form{
+    margin-top: 1em !important;
+}
+
 /* Header */
 #logo {
     margin: auto;
     padding: 1em 0em;
 }
+
+
+
+/* HOME */
+#order_ticketType_0{
+    display: block !important;
+}
+
+img.spaced{
+    margin-top: 1em !important;
+}
+
 
