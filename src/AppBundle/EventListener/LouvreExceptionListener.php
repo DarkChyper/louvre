@@ -40,7 +40,7 @@ class LouvreExceptionListener
         // holds status code and header details
         if ($exception instanceof OrderSessionException) {
             $response = new RedirectResponse($this->router->generate('homepage'));
-        } elsif($exception instanceof HttpExceptionInterface) {
+        } elseif($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
         } else {
