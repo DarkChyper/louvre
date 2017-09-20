@@ -25,10 +25,10 @@ class HomeController extends Controller
             if($orderService->areEnoughtTickets($order->getVisitDate(),$order->getTicketNumber())){
 
                 // save in session
-                $sessionService->setOrderSession($order);
+                $sessionService->saveOrderSession($order);
 
                 // go to ticket view
-                $response = $this->forward('AppBundle:TicketsController:ticketsAction');
+                $response = $this->forward('AppBundle:Tickets:tickets');
                 return $response;
             }
 

@@ -3,14 +3,22 @@
 {{ form_start(orderForm) }}
 <div class="col s12 m6 grey darken-1" id="home_col_form">
 
+    {% if form_errors(orderForm) != null %}
+        <div class="card card-error center">
+            {{ form_errors(orderForm) }}
+        </div>
+    {% endif %}
+
     <div class="line_form">
         <h4 class="center">Date de votre venue</h4>
         <hr />
-        {{ form_errors(orderForm.visitDate, {
-            'attr': {
-                'class': 'card bgRed center',
-            }
-        }) }}
+
+        {% if form_errors(orderForm.visitDate) != null  %}
+            <div class="card card-error center">
+                {{ form_errors(orderForm.visitDate) }}
+            </div>
+        {% endif %}
+
         <div id="blockInfos" class="invisible">
             Il n'est pas possible de réserver des billets les mardis et dimanche.
         </div>
@@ -22,13 +30,20 @@
             })
         }}
     </div>
+
     <div class="line_form">
         <h4 class="center">Type de billet</h4>
         <hr />
 
+        {% if form_errors(orderForm.ticketType) != null  %}
+            <div class="card card-error center">
+                {{ form_errors(orderForm.ticketType) }}
+            </div>
+        {% endif %}
+
         {{ form_errors(orderForm.ticketType, {
             'attr': {
-                'class': 'card bgRed center',
+                'class': 'card card-error center',
             }
         }) }}
         <div class="col s12 center-align">
@@ -40,12 +55,20 @@
         }}
         </div>
     </div>
+
     <div class="line_form">
         <h4 class="center">Nombre de billet</h4>
         <hr />
+
+        {% if form_errors(orderForm.ticketNumber) != null  %}
+            <div class="card card-error center">
+                {{ form_errors(orderForm.ticketNumber) }}
+            </div>
+        {% endif %}
+
         {{ form_errors(orderForm.ticketNumber, {
             'attr': {
-                'class': 'card bgRed center',
+                'class': 'card card-error center',
             }
         }) }}
         <div class="col s12">
@@ -53,12 +76,20 @@
             }}
         </div>
     </div>
+
     <div class="line_form">
         <h4 class="center">Votre adresse mail</h4>
         <hr />
+
+        {% if form_errors(orderForm.mailContact) != null  %}
+            <div class="card card-error center">
+                {{ form_errors(orderForm.mailContact) }}
+            </div>
+        {% endif %}
+
         {{ form_errors(orderForm.mailContact, {
             'attr': {
-                'class': 'card bgRed center',
+                'class': 'card card-error center',
             }
         }) }}
         {{ form_widget(orderForm.mailContact, {

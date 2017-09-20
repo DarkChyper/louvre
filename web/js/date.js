@@ -10,8 +10,7 @@ function isFullDayEnable() {
         var $inputHalf = document.getElementById("order_ticketType_1");
         var $blockInfos = document.getElementById("blockInfos");
 
-        console.info("getDay : " + $dateObject.getDay());
-        if($dateObject.getDay() === 2 || $dateObject.getDay() === 4){
+        if(dayOfWeek($dateObject) === 0 || dayOfWeek($dateObject) === 2){
             // if date is sunday or tuesday
             console.info("dimanche ou mardi");
             $inputFull.disabled = true;
@@ -19,7 +18,7 @@ function isFullDayEnable() {
             $inputHalf.disabled = true;
             $inputHalf.checked = false;
             $btnSuivant.disabled = true;
-            $blockInfos.className = "card bgRed center";
+            $blockInfos.className = "card card-error center";
             return; // no need more test
 
         } else {
@@ -48,13 +47,10 @@ function setDateObject($dateFR){
     $dateObject.setMonth($dateFR.substr(3,2));
     $dateObject.setDate($dateFR.substr(0,2));
 
-    console.info( $dateObject.getDate() + "/" + $dateObject.getMonth() + "/" +$dateObject.getFullYear());
     return $dateObject
 
 }
 function isToday($dateToCompare, $now){
-    console.info( $dateToCompare.getDate() + "/" + $dateToCompare.getMonth() + "/" + $dateToCompare.getFullYear());
-    console.info( $now.getDate() + " " + $now.getMonth() + " " + $now.getFullYear());
     if($dateToCompare.getDate() === $now.getDate()
         && $dateToCompare.getMonth() === ($now.getMonth()+1)
         && $dateToCompare.getFullYear() === $now.getFullYear()
@@ -66,5 +62,24 @@ function isToday($dateToCompare, $now){
     return false;
 }
 
+
+function dayOfWeek($date){
+
+    var $month = $date.getMonth();
+    var $day = $date.getDate();
+    var $year = $date.getFullYear();
+
+    var $c = Math.floor((14-$month)/12);
+    var $a = $year - $c;
+    var $m = ($month + (12 * $c)) - 2;
+    return ($day + $a + Math.floor($a / 4) - Math.floor($a/100) + Math.floor($a/400) + Math.floor((31 * $m)/12)) %7;
+    /*
+    if($month >= 3){
+        return  ( Math.floor((23 * $month)/9) + $day + 4 + $year + Math.floor($year/4) - Math.floor($year/100) + Math.floor($year/400) - 2 ) % 7;
+    } else {
+        return ( Math.floor((23 * $month) /9 ) + $day + 4 + $year + Math.floor($year/4) - Math.floor($year/100) + Math.floor($year/400)) %7;
+    }*/
+
+}
 
 

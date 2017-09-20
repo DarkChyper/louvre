@@ -34,7 +34,7 @@ class SessionService
     public function getOrCreateOrderSession(){
 
         if(! $this->session->has("order")){
-            $this->session->set("order", new Order());
+            $this->saveOrderSession(new Order());
         }
         return $this->session->get("order");
     }
@@ -50,6 +50,12 @@ class SessionService
         return $this->session->get("order");
     }
 
+    /**
+     * @param Order $order
+     */
+    public function saveOrderSession(Order $order){
+        $this->session->set("order", $order);
+    }
 
 }
 
