@@ -16,6 +16,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class LouvreExceptionListener
 {
+    private $router;
+    
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
@@ -38,9 +40,11 @@ class LouvreExceptionListener
         // holds status code and header details
         if ($exception instanceof OrderSessionException) {
             $response = new RedirectResponse($this->router->generate('homepage'));
-        } else {
+        } elsif($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
+        } else {
+            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         // Send the modified response object to the event
