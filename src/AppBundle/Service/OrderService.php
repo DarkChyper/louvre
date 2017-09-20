@@ -26,26 +26,6 @@ class OrderService
     }
 
     /**
-     * @param Order $order
-     * @param Form $orderForm
-     * @return bool
-     */
-    public function checkOrderForm(Order $order, Form $orderForm){
-        $retour = false;
-        if($orderForm->isSubmitted() && $orderForm->isValid()){
-
-            // check date
-            // check ticket left
-            if($this->dateService->isAvailableVisitDay($order->getVisitDate(), $order->getTicketType())
-                && $this->areEnoughtTickets($order->getVisitDate(), $order->getTicketNumber())){
-                // save order
-                $retour = true;
-            }
-        }
-        return $retour;
-    }
-
-    /**
      * Return true if $ticketNumber tickets still available
      * false otherwise
      *
@@ -53,7 +33,7 @@ class OrderService
      * @param $ticketNumber
      * @return bool
      */
-    private function areEnoughtTickets(\DateTime $visitDate, $ticketNumber){
+    public function areEnoughtTickets(\DateTime $visitDate, $ticketNumber){
         if($this->howManyTicketsLeft($visitDate) >= $ticketNumber){
             return true;
         }

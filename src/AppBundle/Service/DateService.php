@@ -21,33 +21,6 @@ class DateService
         $this->mfs = $messagesFlashService;
     }
 
-    public function isAvailableVisitDay(\DateTime $dateTime,$ticketType){
-        $retour = true;
-
-        // is sunday or tueasday ?
-        if($dateTime->format("N") === 2
-            OR $dateTime->format("N") === 7 ){
-
-            $this->mfs->messageError("Il n'est pas possible de réserver des billets les mardis et dimanches.");
-            $retour = false;
-
-        }
-
-        if($this->isPublicHolidayInFrance($dateTime)){
-
-            $this->mfs->messageError($dateTime->format("d/m/Y") ." est un jour férié en France. Le musée sera fermé ce jour là.");
-            $retour = false;
-
-            // message service
-        }
-
-        // is today after 2pm and full day tickets ?
-        if($ticketType === "FULL" && $this->isToday($dateTime)){
-
-        }
-
-        return $retour;
-    }
 
     /**
      * Return true if the day is a public holiday in Franche
@@ -56,7 +29,7 @@ class DateService
      * @param \DateTime $dateTime
      * @return bool
      */
-    private function isPublicHolidayInFrance(\DateTime $dateTime){
+    public function isPublicHolidayInFrance(\DateTime $dateTime){
         $ts = $dateTime->getTimestamp();
         foreach($this->getHolidays(intval($dateTime->format("Y"))) as $timestamp){
             if($ts === $timestamp){
@@ -80,7 +53,6 @@ class DateService
         {
             $year = intval(date('Y'));
         }
-        $marchTS = mktime(0, 0, 0, 3,  21,  $year);
 
         $easterDate  = mktime(0, 0, 0, 3,  21,  $year) + ( 24 *3600 * easter_days($year));
         $easterDay   = date('j', $easterDate);

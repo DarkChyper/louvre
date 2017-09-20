@@ -9,6 +9,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as LouvreAssert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 
 /**
  * Order
@@ -32,6 +35,8 @@ class Order
      *
      * @ORM\Column(name="visit_date", type="date", nullable=false)
      * @Assert\Date(message="La date doit être au format JJ/MM/YYYY")
+     * @LouvreAssert\AvailableVisitDay
+     * @LouvreAssert\NotPublicHollidayInFrance
      */
     protected $visitDate;
 
@@ -262,6 +267,20 @@ class Order
     public function removeTicket(\AppBundle\Entity\Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        $today = new \DateTime("now");
+        $time = $today->format('H');
+        $today->setTime(0, 0, 0);
+        if($this->getVisitDate() == $today && $time >=14 && $this->getTicketType() == 'FULL'){
+            $context->buildViolation('Il n\'est pas possible de réserver un billet journée, après 14h00, le jour même.')
+                ->addViolation();
+        }
     }
 }
 

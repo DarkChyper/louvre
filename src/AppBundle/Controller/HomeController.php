@@ -20,7 +20,17 @@ class HomeController extends Controller
         $order = $sessionService->getOrCreateOrderSession();
         $orderForm = $this->createForm(OrderType::class, $order)->handleRequest($request);
 
-        if($orderService->checkOrderForm($order, $orderForm)){
+        if($orderForm->isSubmitted() && $orderForm->isValid()){
+
+            if($orderService->areEnoughtTickets($order->getVisitDate(),$order->getTicketNumber())){
+
+                // save in session
+                $sessionService->setOrderSession($order);
+
+                // go to ticket view
+                $response = $this->forward('AppBundle:TicketsController:ticketsAction');
+                return $response;
+            }
 
         }
 
