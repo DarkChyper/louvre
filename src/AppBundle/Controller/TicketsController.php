@@ -15,8 +15,6 @@ class TicketsController extends Controller
      */
     public function ticketsAction(Request $request, SessionService $sessionService)
     {
-        $order = $sessionService->getOrderSession();
-
 
         return $this->render('tickets/index.html.twig');
     }

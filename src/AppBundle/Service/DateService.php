@@ -86,7 +86,7 @@ class DateService
      * @param \DateTime $dateTime
      * @return bool
      */
-    private function isToday(\DateTime $dateTime){
+    public function isToday(\DateTime $dateTime){
         $today = date("Ymd");
         $dateToVerif = $dateTime->format("Ymd");
         if(intval($today) === intval($dateToVerif)){
