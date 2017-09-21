@@ -33,3 +33,9 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    #listener to catch order session exception and redirect to homepage
+    app.exception_listener:
+        class: AppBundle\EventListener\OrderSessionExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

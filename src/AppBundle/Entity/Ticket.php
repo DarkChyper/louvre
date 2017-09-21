@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Ticket
  *
- * @ORM\Table(name="ticket")
+ * @ORM\Table(name="tickets")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TicketRepository")
  */
 class Ticket
@@ -35,14 +35,6 @@ class Ticket
      *
      */
     protected $order;
-
-    /**
-     * @var string
-     * @ORM\Column(name="type", type="string", length=4)
-     * @Assert\NotBlank()
-     *
-     */
-    protected $type;
 
     /**
      * @var string
@@ -119,22 +111,6 @@ class Ticket
     public function setOrder($order)
     {
         $this->order = $order;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 
     /**
@@ -218,3 +194,5 @@ class Ticket
     }
 
 }
+
+

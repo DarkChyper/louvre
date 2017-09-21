@@ -1,0 +1,42 @@
+{# app/Resources/views/home/index.html.twi #}
+
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="col s12 black border-dark-red">
+            <h2 class="txt-red">Votre visite</h2>
+    </div>
+
+
+    {# form col #}
+    {% include('home/forms/orderForm.html.twig') %}
+    {# end form col #}
+
+    {# images col, hidden on smartphones #}
+    <div class="col hide-on-small-only m6 grey darken-1" id="home_col_photos">
+        <img src="{{ asset('images/ext.jpg') }}" alt="La pyramide du Louvre" class="responsive-img spaced" />
+        <img src="{{ asset('images/couloir.jpg') }}" alt="Un des couloirs d'exposition du musée" class="responsive-img spaced" />
+    </div>
+    {# end images col #}
+
+    <div class="col s12 black ">
+        <h2 class="txt-red">Vos billets</h2>
+    </div>
+    <div class="col s12 black border-dark-red">
+        <h2 class="txt-red">Paiement</h2>
+    </div>
+
+{% endblock body %}
+
+{% block javascripts %}
+    {{  parent() }}
+    <script src="{{ asset('js/datepicker.fr.js') }}"></script>
+    <script src="{{ asset('js/date.js') }}"></script>
+{% endblock javascripts %}
+
+

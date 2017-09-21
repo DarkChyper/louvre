@@ -1,13 +1,59 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+{# app/Resources/views/base.html.twig #}
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ asset('images/web-icon.png') }}" type="image/x-icon">
+    <meta name="description" content="">
+
+    <title>{% block title %}Billetterie du Louvre{% endblock title %}</title>
+
+    {% block stylesheets %}
+
+        <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.structure.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.theme.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/louvre.css') }}">
+    {% endblock stylesheets %}
+
+</head>
+<body>
+
+        {% block header %}
+            {% include('commons/header.html.twig') %}
+        {% endblock %}
+
+        {% block messagesFlash %}
+
+        {% endblock %}
+
+        <div class="container">
+            <div class="row grey darken-1">
+                {% block body %}
+
+                {% endblock body %}
+            </div>
+        </div>
+
+
+        {% block footer %}
+
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery/external/jquery/jquery.js') }}"></script>
+            <script src="{{ asset('js/jquery/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('js/materialize.min.js') }}"></script>
+            <script src="{{ asset('js/dateJS.js') }}"></script>
+
+        {% endblock javascripts %}
+
+
+</body>
 </html>
+
+

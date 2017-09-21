@@ -1,0 +1,38 @@
+{# app/Resources/views/home/index.html.twi #}
+
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Choix des billets - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="col s12 black border-dark-red">
+        <h2 class="txt-red"><a href="{{ path('homepage') }}">Votre visite</a></h2>
+    </div>
+    <div class="col s12 black ">
+        <h2 class="txt-red">Vos billets</h2>
+    </div>
+
+    {# form col #}
+    <div class="col s12">
+        {{ form_start(ticketForm) }}
+        {{ form_widget(ticketForm.discount) }}
+        {{ form_label(ticketForm.discount) }}
+        {{ form_end(ticketForm) }}
+    </div>
+    {# end form col #}
+
+
+    <div class="col s12 black border-dark-red">
+        <h2 class="txt-red">Paiement</h2>
+    </div>
+
+{% endblock body %}
+
+{% block javascripts %}
+    {{  parent() }}
+{% endblock javascripts %}
+
+
