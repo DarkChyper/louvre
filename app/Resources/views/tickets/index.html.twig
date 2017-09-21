@@ -17,10 +17,16 @@
 
     {# form col #}
     <div class="col s12">
-        {{ form_start(ticketForm) }}
-        {{ form_widget(ticketForm.discount) }}
-        {{ form_label(ticketForm.discount) }}
-        {{ form_end(ticketForm) }}
+        {{ form_start(ticketsForm) }}
+        {% for ticket in ticketsForm.tickets %}
+            {{ form_row(ticket.name) }}
+            {{ form_row(ticket.fname) }}
+            {{ form_row(ticket.country) }}
+            {{ form_row(ticket.birth) }}
+            {{ form_row(ticket.discount) }}
+        {% endfor %}
+
+        {{ form_end(ticketsForm) }}
     </div>
     {# end form col #}
 

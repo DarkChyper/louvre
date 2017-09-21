@@ -10,6 +10,8 @@ namespace AppBundle\Service;
 
 
 use AppBundle\Entity\Order;
+use AppBundle\Entity\Ticket;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Form;
@@ -45,6 +47,40 @@ class OrderService
     }
 
     /**
+     * Set $order->getTicketNumber() empty ticket
+     * @param Order $order
+     */
+    public function setEmptyTickets(Order $order){
+        if($order->getTickets()->count() === 0){
+            // new order = no tickets before
+            return $this->initializeEmptyTickets($order);
+
+        } elseif($order->getTickets()->count() !== $order->getTicketNumber()){
+            // not new order and number of tickets changed => clean old tickets
+            $order->setTickets(new ArrayCollection());
+            return $this->initializeEmptyTickets($order);
+
+        } else {
+            // reload page ? change something in order
+            // but not the number of tickets => nothing to do
+            return $order;
+        }
+    }
+
+    /**
+     * @param $order
+     */
+    private function initializeEmptyTickets($order){
+
+        for($i = 0; $i < $order->getTicketNumber(); $i++){
+
+            $order->getTickets()->add(new Ticket());
+
+        }
+        return $order;
+    }
+
+    /**
      * Return the number of tickets left for the $visitDate
      *
      * @param \DateTime $visitDate
@@ -54,6 +90,8 @@ class OrderService
        return (1000 - $this->em->getRepository('AppBundle:Order')->countTicketsReserved($visitDate));
 
     }
+
+
 }
 
 
