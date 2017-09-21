@@ -71,8 +71,8 @@ class OrderService
      * @param $order
      */
     private function initializeEmptyTickets($order){
-
-        for($i = 0; $i < $order->getTicketNumber(); $i++){
+        $limit =  $order->getTicketNumber();
+        for($i = 0; $i < $limit ; $i++){
 
             $order->getTickets()->add(new Ticket());
 
