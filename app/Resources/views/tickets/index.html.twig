@@ -16,7 +16,12 @@
     </div>
 
     {# form col #}
-    {# include('home/forms/orderForm.html.twig') #}
+    <div class="col s12">
+        {{ form_start(ticketForm) }}
+        {{ form_widget(ticketForm.discount) }}
+        {{ form_label(ticketForm.discount) }}
+        {{ form_end(ticketForm) }}
+    </div>
     {# end form col #}
 
 

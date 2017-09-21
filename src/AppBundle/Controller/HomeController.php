@@ -28,8 +28,7 @@ class HomeController extends Controller
                 $sessionService->saveOrderSession($order);
 
                 // go to ticket view
-                $response = $this->forward('AppBundle:Tickets:tickets');
-                return $response;
+                return $this->forward('AppBundle:Tickets:tickets');
             }
 
         }

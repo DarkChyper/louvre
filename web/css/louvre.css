@@ -66,6 +66,7 @@ input:not(empty), input:valid, input:checked{
     box-shadow: 0 0px 0 0 #23C0D7 !important;
 }
 
+
 select{
     border-top: none !important;
     border-left: none !important;

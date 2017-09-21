@@ -10,6 +10,17 @@ namespace AppBundle\Repository;
  */
 class OrderRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function countTicketsReserved(\DateTime $visitDate){
+
+        $date = $visitDate->format("Y-m-d");
+        $qb = $this->createQueryBuilder('t');
+        $qb->select('sum(t.ticketNumber)');
+        $qb->where('t.visitDate = :visitDate');
+        $qb->setParameter('visitDate', $date);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
 
 

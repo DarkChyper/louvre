@@ -10,19 +10,23 @@ namespace AppBundle\Service;
 
 
 use AppBundle\Entity\Order;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Form;
 
 class OrderService
 {
     protected $dateService;
+    protected $em;
 
 
     /**
      * OrderService constructor.
      */
-    public function __construct(DateService $dateService)
+    public function __construct(EntityManager $entityManager,DateService $dateService)
     {
         $this->dateService = $dateService;
+        $this->em = $entityManager;
     }
 
     /**
@@ -47,7 +51,8 @@ class OrderService
      * @return int
      */
     private function howManyTicketsLeft(\DateTime $visitDate){
-        return 1000;
+       return  $this->em->getRepository('AppBundle:Order')->countTicketsReserved($visitDate);
+
     }
 }
 
