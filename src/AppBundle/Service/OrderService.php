@@ -51,7 +51,7 @@ class OrderService
      * @return int
      */
     private function howManyTicketsLeft(\DateTime $visitDate){
-       return  $this->em->getRepository('AppBundle:Order')->countTicketsReserved($visitDate);
+       return (1000 - $this->em->getRepository('AppBundle:Order')->countTicketsReserved($visitDate));
 
     }
 }
