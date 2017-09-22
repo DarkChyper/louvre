@@ -19,11 +19,15 @@
     <div class="col s12">
         {{ form_start(ticketsForm) }}
         {% for ticket in ticketsForm.tickets %}
+            <fieldset>
+                <legend>Billet</legend>
             {{ form_row(ticket.name) }}
             {{ form_row(ticket.fname) }}
             {{ form_row(ticket.country) }}
             {{ form_row(ticket.birth) }}
-            {{ form_row(ticket.discount) }}
+            {{ form_widget(ticket.discount) }}
+            {{ form_label(ticket.discount) }}
+            </fieldset>
         {% endfor %}
 
         {{ form_end(ticketsForm) }}
