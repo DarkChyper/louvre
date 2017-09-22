@@ -11,6 +11,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Order;
 use AppBundle\Entity\Ticket;
+use AppBundle\Service\MessagesFlashService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -20,15 +21,17 @@ class OrderService
 {
     protected $dateService;
     protected $em;
+    protected $mfs;
 
 
     /**
      * OrderService constructor.
      */
-    public function __construct(EntityManager $entityManager,DateService $dateService)
+    public function __construct(EntityManager $entityManager,DateService $dateService,MessagesFlashService $messageFlashService)
     {
         $this->dateService = $dateService;
         $this->em = $entityManager;
+        $this->mfs = $messageFlashService;
     }
 
     /**
@@ -43,6 +46,7 @@ class OrderService
         if($this->howManyTicketsLeft($visitDate) >= $ticketNumber){
             return true;
         }
+        $this->mfs->messageError("Il n'y a plus assez de place disponible pour votre réservation. Essayer de réduire le nombre de place ou de choisir une autre date.");
         return false;
     }
 
