@@ -3,7 +3,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Choix des billets - {{ parent() }}
+    Accueil - {{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -12,23 +12,19 @@
         <h2 class="txt-red"><a href="{{ path('homepage') }}">Votre visite</a></h2>
     </div>
     <div class="col s12 black ">
-        <h2 class="txt-red">Vos billets</h2>
+        <h2 class="txt-red"><a href="{{ path('tickets') }}">Vos billets</a></h2>
     </div>
-
-    {% include('tickets/forms/ticketForm.html.twig') %}
-
-
     <div class="col s12 black border-dark-red">
         <h2 class="txt-red">Paiement</h2>
     </div>
+
+
+
 
 {% endblock body %}
 
 {% block javascripts %}
     {{  parent() }}
-    <script src="{{ asset('js/datepicker.fr.js') }}"></script>
-    <script src="{{ asset('js/discount.js') }}"></script>
-    <script src="{{ asset('js/prices.js') }}"></script>
 {% endblock javascripts %}
 
 

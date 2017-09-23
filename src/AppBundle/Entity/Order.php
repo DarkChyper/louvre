@@ -7,6 +7,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Validator\Constraints as LouvreAssert;
@@ -105,6 +106,7 @@ class Order
      */
     public function __construct()
     {
+        $this->tickets = new ArrayCollection();
         $this->used = 0; // tickets are not used
     }
 

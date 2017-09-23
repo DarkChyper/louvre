@@ -61,7 +61,9 @@ class Ticket
      * @var \DateTime
      *
      * @ORM\Column(name="birth", type="date", nullable=false)
+     * @Assert\NotBlank()
      * @Assert\Date(message="La date doit être au format JJ/MM/YYYY")
+     * @Assert\LessThan(value="tomorrow",message="La date de naissance ne peut être future.")
      */
     protected $birth;
 

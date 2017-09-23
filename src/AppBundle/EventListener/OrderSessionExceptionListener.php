@@ -27,11 +27,6 @@ class OrderSessionExceptionListener
     public function onKernelException(GetResponseForExceptionEvent $event){
         // You get the exception object from the received event
         $exception = $event->getException();
-        /*$message = sprintf(
-            'My Error says: %s with code: %s',
-            $exception->getMessage(),
-            $exception->getCode()
-        );*/
 
         // Customize your response object to display the exception details
         $response = new Response();

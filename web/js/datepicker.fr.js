@@ -22,6 +22,6 @@ jQuery(function($){
 
 $( ".datepicker" ).datepicker(  { minDate: 0, maxDate: "+2Y", calendarWeeks: true, editable: true } , $.datepicker.regional[ "fr" ]);
 
-
+$( ".dateBirthPicker" ).datepicker( {minDate: "-120Y", maxDate: 0, calendarWeeks: true, editable: true, changeMonth: true, yearRange: "-100:+0", changeYear: true } , $.datepicker.regional[ "fr" ]);
 
 

@@ -1,0 +1,68 @@
+<div class="col s12">
+    {{ form_start(ticketsForm) }}
+    {% set numberOfTicket = 0 %}
+    {% for ticket in ticketsForm.tickets %}
+        <fieldset>
+
+            <legend> Billet #{{ numberOfTicket + 1 }} </legend>
+            <div class="col s12 m6">
+                <h4 class="center">Nom</h4>
+                <hr />
+                {{ form_row(ticket.name) }}
+
+                <h4 class="center">Prénom</h4>
+                <hr />
+                {{ form_row(ticket.fname) }}
+
+                <h4 class="center">Pays</h4>
+                <hr />
+                {{ form_row(ticket.country) }}
+            </div>
+            <div class="col s12 m6">
+                <h4 class="center">Date de naissance</h4>
+                <hr />
+                {{ form_widget(ticket.birth, {
+                    'attr': {
+                        'class': 'dateBirthPicker validate center-block',
+                        'onchange': 'calculateTicketPrice('~ numberOfTicket ~'); calculateTotalPrice('~ ticketsForm.tickets|length ~');'
+
+                } }
+                ) }}
+                <div class="center">
+                    {{ form_widget(ticket.discount,{
+                        'attr': {
+                            'onchange': 'setDiscountInfo('~ numberOfTicket ~'); calculateTicketPrice('~ numberOfTicket ~'); calculateTotalPrice('~ ticketsForm.tickets|length ~');'
+                        }
+                    }) }}
+                    {{ form_label(ticket.discount) }}
+                </div>
+                <div id="discount_{{ numberOfTicket }}" class="invisible">
+                    Applicable pour les militaires, demandeurs d'emploi, étudiants, séniors sous réserve de présentation d'un justificatif avant l'accès au musée.
+                </div>
+            </div>
+            <div class="col s12 m6 offset-m6 center">Prix du billet : <span id="price_{{ numberOfTicket }}">00,00</span>€*</div>
+
+        </fieldset>
+        {% set numberOfTicket = numberOfTicket + 1 %}
+    {% endfor %}
+    <div class="col s12">
+        <h4 class="center">Total du panier</h4>
+        <hr />
+        <div class="center">
+            <span id="total_price" class="txt-big txt-blue">00,00€*</span>
+        </div>
+        <div class="col s12 m6 offset-m3">
+            <div class="card card-info center">*Prix indicatifs, ceux-ci seront validés lors de la prochaine étape.</div>
+        </div>
+    </div>
+
+    <div class="col s12 center">
+        {{ form_widget(ticketsForm.suivant,{
+            'attr': {
+                'class': 'waves-effect btn bgBlue'
+            }
+        }) }}
+    </div>
+    {{ form_end(ticketsForm) }}
+</div>
+

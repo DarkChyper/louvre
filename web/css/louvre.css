@@ -12,7 +12,9 @@ body{
     background-color: #23C0D7;
 }
 
-
+.row {
+    margin-bottom: 0 !important;
+}
 
 .card-success, .card-success:hover{
     background-color: #4CAF50 !important;
@@ -32,6 +34,14 @@ body{
 
 .txt-red{
     color: #c82d00;
+}
+
+.txt-blue{
+    color: #23C0D7;
+}
+
+.txt-big{
+    font-size: xx-large;
 }
 
 .border-dark-red{
@@ -74,6 +84,11 @@ select{
     border-bottom: solid 2px #23C0D7 !important;
     color: black !important;
 
+}
+
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    width: 45% !important;
+    float: left !important;
 }
 
 label{

@@ -41,6 +41,30 @@ class DateService
     }
 
     /**
+     * @param \DateTime $date
+     * @return int Age
+     */
+    public function calculateAge(\DateTime $date){
+        $year = intval($date->format("Y"));
+        $month = intval($date->format("m"));
+        $day = intval($date->format("d"));
+
+        $now = new \DateTime();
+        $year2d = intval($now->format("Y"));
+        $month2d = intval($now->format("m"));
+        $day2d = intval($now->format("d"));
+
+        $age = $year2d - $year;
+
+        if(($month === $month2d && $day2d < $day)||($month2d < $month)){
+            $age --;
+        }
+
+        return $age;
+
+    }
+
+    /**
      * Return an array of public holiday in france for the $year
      * or actual year if null
      *
