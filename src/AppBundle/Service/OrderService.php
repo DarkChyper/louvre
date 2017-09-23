@@ -72,9 +72,57 @@ class OrderService
     }
 
     /**
+     * Calculate total price depending of tickets
+     *
+     * @param Order $order
+     */
+    public function calculateTotalPrice(Order $order){
+        $total = 0;
+        $ticketsArray = $order->getTickets();
+        foreach($ticketsArray as $ticket){
+
+            $total += $this->calculateTicketPrice($this->dateService->calculateAge($ticket->getBirth()),$ticket->getDiscount());
+
+        }
+
+        $order->setTotalPrice($total);
+    }
+
+
+    /**
+     * @param $age integer
+     * @param $discount boolean
+     * @return int
+     */
+    private function calculateTicketPrice($age, $discount){
+        $price = 0;
+
+        switch(true){
+            case ($age >= 4 && $age <= 12):
+                $price = 8;
+                break;
+            case ($age > 12 && $age < 60):
+                $price = 16;
+                break;
+            case ($age >= 60):
+                $price = 12;
+                break;
+            default:
+                $price = 0;
+                break;
+        }
+
+        if($discount && $price > 10 ){
+            $price = 10;
+        }
+
+        return $price;
+    }
+
+    /**
      * @param $order
      */
-    private function initializeEmptyTickets($order){
+    private function initializeEmptyTickets(Order $order){
         $limit =  $order->getTicketNumber();
         for($i = 0; $i < $limit ; $i++){
 

@@ -22,12 +22,20 @@ class TicketsController extends Controller
 
         $order = $orderService->setEmptyTickets($sessionService->getOrderSession());
 
-        $ticketsForm = $this->createForm(OrderTicketsType::class, $order);
+        $ticketsForm = $this->createForm(OrderTicketsType::class, $order, array(
+            'action' => $this->generateUrl("tickets"),
+        ));
 
         $ticketsForm->handleRequest($request);
 
-        //$ticket = new Ticket();
-        //$ticketForm = $this->createForm(TicketType::class, $ticket)->handleRequest($request);
+        if($ticketsForm->isSubmitted() && $ticketsForm->isValid()){
+
+            $orderService->calculateTotalPrice($order);
+            $sessionService->saveOrderSession($order);
+
+            // got to validation
+            return $this->forward('AppBundle:Payment:payment');
+        }
 
         return $this->render('tickets/index.html.twig', array(
             "ticketsForm" => $ticketsForm->createView(),
