@@ -15,24 +15,7 @@
         <h2 class="txt-red">Vos billets</h2>
     </div>
 
-    {# form col #}
-    <div class="col s12">
-        {{ form_start(ticketsForm) }}
-        {% for ticket in ticketsForm.tickets %}
-            <fieldset>
-                <legend>Billet</legend>
-            {{ form_row(ticket.name) }}
-            {{ form_row(ticket.fname) }}
-            {{ form_row(ticket.country) }}
-            {{ form_row(ticket.birth) }}
-            {{ form_widget(ticket.discount) }}
-            {{ form_label(ticket.discount) }}
-            </fieldset>
-        {% endfor %}
-
-        {{ form_end(ticketsForm) }}
-    </div>
-    {# end form col #}
+    {% include('tickets/forms/ticketForm.html.twig') %}
 
 
     <div class="col s12 black border-dark-red">
@@ -43,6 +26,9 @@
 
 {% block javascripts %}
     {{  parent() }}
+    <script src="{{ asset('js/datepicker.fr.js') }}"></script>
+    <script src="{{ asset('js/discount.js') }}"></script>
+    <script src="{{ asset('js/prices.js') }}"></script>
 {% endblock javascripts %}
 
 

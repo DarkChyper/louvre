@@ -13,7 +13,7 @@ use AppBundle\Entity\Order;
 use AppBundle\Entity\Ticket;
 use AppBundle\Service\MessagesFlashService;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Form;
 
@@ -27,7 +27,7 @@ class OrderService
     /**
      * OrderService constructor.
      */
-    public function __construct(EntityManager $entityManager,DateService $dateService,MessagesFlashService $messageFlashService)
+    public function __construct(EntityManagerInterface $entityManager,DateService $dateService,MessagesFlashService $messageFlashService)
     {
         $this->dateService = $dateService;
         $this->em = $entityManager;
