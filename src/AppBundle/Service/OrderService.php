@@ -22,39 +22,26 @@ class OrderService
     protected $dateService;
     protected $em;
     protected $mfs;
+    protected $sessionsService;
 
 
     /**
      * OrderService constructor.
      */
-    public function __construct(EntityManagerInterface $entityManager,DateService $dateService,MessagesFlashService $messageFlashService)
+    public function __construct(EntityManagerInterface $entityManager,DateService $dateService,MessagesFlashService $messageFlashService, SessionService $sessionService)
     {
         $this->dateService = $dateService;
         $this->em = $entityManager;
         $this->mfs = $messageFlashService;
-    }
-
-    /**
-     * Return true if $ticketNumber tickets still available
-     * false otherwise
-     *
-     * @param \DateTime $visitDate
-     * @param $ticketNumber
-     * @return bool
-     */
-    public function areEnoughtTickets(\DateTime $visitDate, $ticketNumber){
-        if($this->howManyTicketsLeft($visitDate) >= $ticketNumber){
-            return true;
-        }
-        $this->mfs->messageError("Il n'y a plus assez de place disponible pour votre réservation. Essayer de réduire le nombre de place ou de choisir une autre date.");
-        return false;
+        $this->sessionsService = $sessionService;
     }
 
     /**
      * Set $order->getTicketNumber() empty ticket
      * @param Order $order
      */
-    public function setEmptyTickets(Order $order){
+    public function setEmptyTickets(){
+        $order = $this->sessionsService->getOrderSession();
         if($order->getTickets()->count() === 0){
             // new order = no tickets before
             return $this->initializeEmptyTickets($order);
@@ -76,7 +63,8 @@ class OrderService
      *
      * @param Order $order
      */
-    public function calculateTotalPrice(Order $order){
+    public function calculateTotalPrice(){
+        $order = $this->sessionsService->getOrderSession();
         $total = 0;
         $ticketsArray = $order->getTickets();
         foreach($ticketsArray as $ticket){
@@ -86,6 +74,7 @@ class OrderService
         }
 
         $order->setTotalPrice($total);
+        $this->sessionsService->saveOrderSession($order);
     }
 
 
@@ -130,6 +119,22 @@ class OrderService
 
         }
         return $order;
+    }
+
+    /**
+     * Return true if $ticketNumber tickets still available
+     * false otherwise
+     *
+     * @param \DateTime $visitDate
+     * @param $ticketNumber
+     * @return bool
+     */
+    public function areEnoughtTickets(\DateTime $visitDate, $ticketNumber){
+        if($this->howManyTicketsLeft($visitDate) >= $ticketNumber){
+            return true;
+        }
+        $this->mfs->messageError("Il n'y a plus assez de place disponible pour votre réservation. Essayer de réduire le nombre de place ou de choisir une autre date.");
+        return false;
     }
 
     /**

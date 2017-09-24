@@ -22,14 +22,11 @@ class HomeController extends Controller
 
         if($orderForm->isSubmitted() && $orderForm->isValid()){
 
-            if($orderService->areEnoughtTickets($order->getVisitDate(),$order->getTicketNumber())){
+            // save in session
+            $sessionService->saveOrderSession($order);
 
-                // save in session
-                $sessionService->saveOrderSession($order);
-
-                // go to ticket view
-                return $this->forward('AppBundle:Tickets:tickets');
-            }
+            // go to ticket view
+            return $this->forward('AppBundle:Tickets:tickets');
 
         }
 
