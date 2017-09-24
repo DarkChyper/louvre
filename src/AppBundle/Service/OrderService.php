@@ -42,6 +42,8 @@ class OrderService
      */
     public function setEmptyTickets(){
         $order = $this->sessionsService->getOrderSession();
+        $order->resetCountTickets();
+
         if($order->getTickets()->count() === 0){
             // new order = no tickets before
             return $this->initializeEmptyTickets($order);
@@ -69,7 +71,7 @@ class OrderService
         $ticketsArray = $order->getTickets();
         foreach($ticketsArray as $ticket){
 
-            $total += $this->calculateTicketPrice($this->dateService->calculateAge($ticket->getBirth()),$ticket->getDiscount());
+            $total += $this->calculateTicketPrice($order, $this->dateService->calculateAge($ticket->getBirth()),$ticket->getDiscount());
 
         }
 
@@ -79,30 +81,39 @@ class OrderService
 
 
     /**
+     * @param $order Order
      * @param $age integer
      * @param $discount boolean
      * @return int
      */
-    private function calculateTicketPrice($age, $discount){
+    private function calculateTicketPrice($order, $age, $discount){
         $price = 0;
 
         switch(true){
             case ($age >= 4 && $age <= 12):
                 $price = 8;
+                $order->addChildTicket();
                 break;
-            case ($age > 12 && $age < 60):
+            case (($age > 12 && $age < 60) && !$discount):
                 $price = 16;
+                $order->addStandardTicket();
                 break;
-            case ($age >= 60):
+            case (($age > 12 && $age < 60) && $discount):
+                $price = 10;
+                $order->addDiscountTicket();
+                break;
+            case ($age >= 60 && !$discount):
                 $price = 12;
+                $order->addSeniorTicket();
+                break;
+            case ($age >= 60 && $discount):
+                $price = 10;
+                $order->addDiscountTicket();
                 break;
             default:
                 $price = 0;
+                $order->addBabyTicket();
                 break;
-        }
-
-        if($discount && $price > 10 ){
-            $price = 10;
         }
 
         return $price;
@@ -147,7 +158,6 @@ class OrderService
        return (1000 - $this->em->getRepository('AppBundle:Order')->countTicketsReserved($visitDate));
 
     }
-
 
 }
 

@@ -101,6 +101,31 @@ class Order
      */
     protected $used;
 
+    /**
+     * @var int
+     */
+    private $babyTicket;
+
+    /**
+     * @var int
+     */
+    private $childTicket;
+
+    /**
+     * @var int
+     */
+    private $seniorTicket;
+
+    /**
+     * @var int
+     */
+    private $standardTicket;
+
+    /**
+     * @var int
+     */
+    private $discountTicket;
+
 
     /**
      * Order constructor.
@@ -108,6 +133,7 @@ class Order
     public function __construct()
     {
         $this->tickets = new ArrayCollection();
+        $this->resetCountTickets();
         $this->used = 0; // tickets are not used
     }
 
@@ -272,6 +298,87 @@ class Order
     }
 
     /**
+     * @return int
+     */
+    public function getBabyTicket()
+    {
+        return $this->babyTicket;
+    }
+
+    /**
+     * @param int $babyTicket
+     */
+    public function addBabyTicket()
+    {
+        $this->babyTicket += 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getChildTicket()
+    {
+        return $this->childTicket;
+    }
+
+    /**
+     * @param int $childTicket
+     */
+    public function addChildTicket()
+    {
+        $this->childTicket += 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeniorTicket()
+    {
+        return $this->seniorTicket;
+    }
+
+    /**
+     * @param int $seniorTicket
+     */
+    public function addSeniorTicket()
+    {
+        $this->seniorTicket += 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStandardTicket()
+    {
+        return $this->standardTicket;
+    }
+
+    /**
+     * @param int $standardTicket
+     */
+    public function addStandardTicket()
+    {
+        $this->standardTicket += 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDiscountTicket()
+    {
+        return $this->discountTicket;
+    }
+
+    /**
+     * @param int $discountTicket
+     */
+    public function addDiscountTicket()
+    {
+        $this->discountTicket += 1;
+    }
+
+
+    /**
      * Add ticket
      *
      * @param \AppBundle\Entity\Ticket $ticket
@@ -293,6 +400,15 @@ class Order
     public function removeTicket(\AppBundle\Entity\Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
+    }
+
+    public function resetCountTickets(){
+
+        $this->babyTicket = 0;
+        $this->childTicket = 0;
+        $this->seniorTicket = 0;
+        $this->standardTicket = 0;
+        $this->discountTicket = 0;
     }
 
     /**
