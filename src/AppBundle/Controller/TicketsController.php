@@ -17,10 +17,10 @@ class TicketsController extends Controller
     /**
      * @Route("/tickets", name="tickets")
      */
-    public function ticketsAction(Request $request, SessionService $sessionService, OrderService $orderService)
+    public function ticketsAction(Request $request, OrderService $orderService)
     {
 
-        $order = $orderService->setEmptyTickets($sessionService->getOrderSession());
+        $order = $orderService->setEmptyTickets();
 
         $ticketsForm = $this->createForm(OrderTicketsType::class, $order, array(
             'action' => $this->generateUrl("tickets"),
@@ -30,10 +30,8 @@ class TicketsController extends Controller
 
         if($ticketsForm->isSubmitted() && $ticketsForm->isValid()){
 
-            $orderService->calculateTotalPrice($order);
-            $sessionService->saveOrderSession($order);
+            $orderService->calculateTotalPrice();
 
-            // got to validation
             return $this->forward('AppBundle:Payment:payment');
         }
 
