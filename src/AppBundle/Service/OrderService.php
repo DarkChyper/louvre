@@ -41,15 +41,20 @@ class OrderService
      * @param Order $order
      */
     public function setEmptyTickets(){
+
         $order = $this->sessionsService->getOrderSession();
+
         $order->resetCountTickets();
 
+        dump($order->getTickets()->count());
+        dump($order->getTicketNumber());
         if($order->getTickets()->count() === 0){
             // new order = no tickets before
             return $this->initializeEmptyTickets($order);
 
         } elseif($order->getTickets()->count() !== $order->getTicketNumber()){
             // not new order and number of tickets changed => clean old tickets
+            dump($order);
             $order->setTickets(new ArrayCollection());
             return $this->initializeEmptyTickets($order);
 
@@ -86,7 +91,7 @@ class OrderService
      * @param $discount boolean
      * @return int
      */
-    private function calculateTicketPrice($order, $age, $discount){
+    private function calculateTicketPrice(Order $order, $age, $discount){
         $price = 0;
 
         switch(true){

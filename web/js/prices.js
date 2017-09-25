@@ -1,3 +1,12 @@
+function calculateOnLoad($foo){
+    for(i = 0; i < $foo; i++ ){
+        calculateTicketPrice(i);
+        console.info(i);
+    }
+    calculateTotalPrice($foo);
+}
+
+
 function calculateTicketPrice($foo){
 
     var $spanPrice = document.getElementById("price_"+$foo);

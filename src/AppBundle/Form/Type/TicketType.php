@@ -53,7 +53,7 @@ class TicketType extends AbstractType
                 'mapped' => true,
                 'required' => false,
                 'label' => 'Bénéficie d\'un tarif réduit',
-                'data' => false, // to uncheck by default
+
 
             ));
     }
