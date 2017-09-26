@@ -135,4 +135,9 @@ img.spaced{
     margin-top: 1em !important;
 }
 
-
+/* PAYENT */
+.recap-line{
+    display: block;
+    min-height: 60px;
+    background-color: darkgray;
+}

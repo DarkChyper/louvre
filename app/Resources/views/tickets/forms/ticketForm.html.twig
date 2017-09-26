@@ -45,7 +45,7 @@
         </fieldset>
         {% set numberOfTicket = numberOfTicket + 1 %}
     {% endfor %}
-    <input type="hidden" id="hidden" onload="calculateOnLoad({{ numberOfTicket }})" />
+    <input type="hidden" id="hidden" onloadeddata="calculateOnLoad({{ numberOfTicket }})" />
     <div class="col s12">
         <h4 class="center">Total du panier</h4>
         <hr />

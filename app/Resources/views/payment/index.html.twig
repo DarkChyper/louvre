@@ -19,6 +19,47 @@
     </div>
 
 
+    <div class="col s12">
+        <h3 class="center-block center">Votre panier</h3>
+        <hr />
+
+        <div class="col s12 m6 center">
+            <h4>Date de visite <br /> <span class="txt-blue">{{ order.visitDate|date("d/m/Y") }}</span> </h4>
+        </div>
+        <div class="col s12 m6 center">
+            <h4><span class="txt-blue">{{ order.ticketNumber }}</span> billet(s)<br /><span class="txt-blue">{% if order.ticketType == "HALF" %} demi-{% endif %}journée </span></h4>
+        </div>
+        {%  for ticket in order.tickets %}
+        <div class="row recap-line">
+            <div class="col s6 m3 offset-m1 center">
+                {{ ticket.fname }}
+            </div>
+            <div class="col s6 m3 center">
+                {{ ticket.name }}
+            </div>
+            <div class="col s12 m2 center">
+                {{ ticket.birth|date("d/m/Y") }}
+            </div>
+            <div class="col s12 m3 center">
+                {{ ticket.price }}€
+                {% if(ticket.discount) %}
+                    justificatif requis
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <br />&nbsp;
+    <br />&nbsp;
+    <br />&nbsp;
+    <br />&nbsp;
+    <br />&nbsp;
+    <br />&nbsp;
+    <br />&nbsp;
+
+
+
 
 
 {% endblock body %}

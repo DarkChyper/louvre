@@ -35,8 +35,6 @@ class TicketsController extends Controller
             return $this->forward('AppBundle:Payment:payment');
         }
 
-        dump($order);
-
         return $this->render('tickets/index.html.twig', array(
             "ticketsForm" => $ticketsForm->createView(),
         ));

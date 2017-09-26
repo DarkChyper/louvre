@@ -28,23 +28,16 @@ class OrderSessionExceptionListener
         // You get the exception object from the received event
         $exception = $event->getException();
 
-        // Customize your response object to display the exception details
-        $response = new Response();
-        $response->setContent($exception->getMessage());
 
         // HttpExceptionInterface is a special type of exception that
         // holds status code and header details
         if ($exception instanceof OrderSessionException) {
-            $response = new RedirectResponse($this->router->generate('homepage'));
-        } elseif($exception instanceof HttpExceptionInterface) {
-            $response->setStatusCode($exception->getStatusCode());
-            $response->headers->replace($exception->getHeaders());
+            $event->setResponse(new RedirectResponse($this->router->generate('homepage')));
+
         } else {
-            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            return false;
         }
 
-        // Send the modified response object to the event
-        $event->setResponse($response);
     }
 }
 
