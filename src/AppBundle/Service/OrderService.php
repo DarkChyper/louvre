@@ -106,7 +106,8 @@ class OrderService
             // delete any tickets
             $tabNewTickets = new ArrayCollection();
             $tickets = $order->getTickets();
-            for($i = self::ZERO; $i < $order->getTicketNumber(); $i++){
+            $toDel =  $order->getTicketNumber();
+            for($i = self::ZERO; $i < $toDel; $i++){
                 $tabNewTickets->add($tickets[$i]);
             }
 
