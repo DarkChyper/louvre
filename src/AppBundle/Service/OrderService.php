@@ -135,7 +135,6 @@ class OrderService
             $this->calculateTicketPrice($order, $ticket,$ticket->getDiscount());
 
         }
-        dump($order);
         $this->sessionsService->saveOrderSession($order);
     }
 

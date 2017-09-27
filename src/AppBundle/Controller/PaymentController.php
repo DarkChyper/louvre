@@ -22,7 +22,6 @@ class PaymentController extends Controller
 
         $order = $sessionService->getOrderSession();
 
-    dump($order);
         return $this->render('payment/index.html.twig', array(
             'order' => $order,
     ));

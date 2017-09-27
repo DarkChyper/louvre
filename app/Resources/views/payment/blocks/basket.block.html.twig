@@ -1,0 +1,36 @@
+<div class="col s12">
+    <h3 class="center-block center">Votre panier</h3>
+    <hr />
+
+    <div class="col s12 m6 center">
+        <h4>Date de visite <br /> <span class="txt-blue">{{ order.visitDate|date("d/m/Y") }}</span> </h4>
+    </div>
+    <div class="col s12 m6 center">
+        <h4><span class="txt-blue">{{ order.ticketNumber }}</span> billet(s)<br /><span class="txt-blue">{% if order.ticketType == "HALF" %} demi-{% endif %}journée </span></h4>
+    </div>
+    {%  for ticket in order.tickets %}
+        <div class="col s8 offset-s2">
+            <div class="card horizontal grey darken-4">
+                <div class="card-image hide-on-med-and-down">
+                    <img src="{{ asset('images/'~ ticket.category ~'_ticket.jpg') }}">
+                </div>
+                <div class="card-stacked white-text">
+                    <div class="card-content">
+                        <p class="big">{{ ticket.fname }} {{ ticket.name }}</p>
+                        <p>{{ ticket.birth|date("d/m/Y") }}</p>
+                        <p>{{ ticket.country }}</p>
+                        {% if(ticket.discount) %}
+                            <div class="txt-blue">Un justificatif (carte d'étudiant, militaire, invalidité...) sera nécessaire pour l'accès au musée</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-action">
+                        <div class="left">Billet <span class="txt-blue">{% if order.ticketType == "HALF" %} demi-{% endif %}journée</span> le <span class="txt-blue">{{ order.visitDate|date("d/m/Y") }}</span></div>
+                        <div class="right">{{ ticket.price }}€</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+

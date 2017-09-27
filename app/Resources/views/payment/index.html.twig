@@ -15,48 +15,30 @@
         <h2 class="txt-red"><a href="{{ path('tickets') }}">Vos billets</a></h2>
     </div>
     <div class="col s12 black border-dark-red">
-        <h2 class="txt-red">Paiement</h2>
+        <h2 class="txt-red"><a href="#">Paiement</a></h2>
     </div>
 
+
+    {% include("payment/blocks/basket.block.html.twig") %}
+
+    <div class="col s12 m8 offset-m2">
+        <p>Une fois le paiement validé, vous recevrez les billets électronique par mail à cette adresse :</p>
+        <div class="txt-blue center">{{ order.mailContact }}</div>
+    </div>
 
     <div class="col s12">
-        <h3 class="center-block center">Votre panier</h3>
+        <h4 class="center">Total du panier</h4>
         <hr />
-
-        <div class="col s12 m6 center">
-            <h4>Date de visite <br /> <span class="txt-blue">{{ order.visitDate|date("d/m/Y") }}</span> </h4>
+        <div class="center">
+            <span id="total_price" class="txt-big txt-blue">{{ order.totalPrice }}€</span>
         </div>
-        <div class="col s12 m6 center">
-            <h4><span class="txt-blue">{{ order.ticketNumber }}</span> billet(s)<br /><span class="txt-blue">{% if order.ticketType == "HALF" %} demi-{% endif %}journée </span></h4>
-        </div>
-        {%  for ticket in order.tickets %}
-        <div class="row recap-line">
-            <div class="col s6 m3 offset-m1 center">
-                {{ ticket.fname }}
-            </div>
-            <div class="col s6 m3 center">
-                {{ ticket.name }}
-            </div>
-            <div class="col s12 m2 center">
-                {{ ticket.birth|date("d/m/Y") }}
-            </div>
-            <div class="col s12 m3 center">
-                {{ ticket.price }}€
-                {% if(ticket.discount) %}
-                    justificatif requis
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
     </div>
 
-    <br />&nbsp;
-    <br />&nbsp;
-    <br />&nbsp;
-    <br />&nbsp;
-    <br />&nbsp;
-    <br />&nbsp;
-    <br />&nbsp;
+    <div class="col s12">
+        <button type="button" class="btn waves-effect waves-light">Payer</button>
+    </div>
+
+
 
 
 
