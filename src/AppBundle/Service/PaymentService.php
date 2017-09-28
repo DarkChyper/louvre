@@ -149,7 +149,7 @@ class PaymentService
         ));
 
         try {
-            $charge = \Stripe\Charge::create(array(
+            \Stripe\Charge::create(array(
                 'customer' => $customer->id,
                 'amount' => $this->os->getTotalAmountToStrip(),
                 'currency' => 'eur'
