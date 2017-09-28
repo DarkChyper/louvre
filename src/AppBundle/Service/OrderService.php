@@ -17,6 +17,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Form;
 
+/**
+ * Class OrderService
+ * @package AppBundle\Service
+ */
 class OrderService
 {
     protected $dateService;
@@ -30,6 +34,7 @@ class OrderService
     CONST MIN_CHILD         = 4;
     CONST MAX_CHILD         = 12;
     CONST MIN_SENIOR        = 60;
+    CONST CENT              = 100;
     CONST MAX_TICKETS       = 1000;
 
     /* DAY TYPE */
@@ -236,6 +241,23 @@ class OrderService
     private function howManyTicketsLeft(\DateTime $visitDate){
        return (self::MAX_TICKETS - $this->em->getRepository('AppBundle:Order')->countTicketsReserved($visitDate));
 
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactMail(){
+        return $this->sessionsService->getOrderSession()->getMailContact();
+    }
+
+    /**
+     * Stripe need a int including cents
+     *
+     * @return int
+     */
+    public function getTotalAmountToStrip(){
+
+        return self::CENT * ($this->sessionsService->getOrderSession()->getTotalPrice());
     }
 
 }

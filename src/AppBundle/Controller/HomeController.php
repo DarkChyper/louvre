@@ -8,6 +8,7 @@ use AppBundle\Service\OrderService;
 use AppBundle\Service\SessionService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
@@ -26,7 +27,7 @@ class HomeController extends Controller
             $sessionService->saveOrderSession($order);
 
             // go to ticket view
-            return $this->forward('AppBundle:Tickets:tickets');
+            return new RedirectResponse($this->generateUrl('tickets'));
 
         }
 

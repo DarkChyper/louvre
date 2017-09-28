@@ -8,7 +8,10 @@
 
 namespace AppBundle\Service;
 
-
+/**
+ * Class DateService
+ * @package AppBundle\Service
+ */
 class DateService
 {
 

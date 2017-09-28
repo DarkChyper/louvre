@@ -14,6 +14,10 @@ use AppBundle\Exception\OrderSessionException;
 use SensioLabs\Security\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * Class SessionService
+ * @package AppBundle\Service
+ */
 class SessionService
 {
     protected $session;
