@@ -12,6 +12,7 @@ use AppBundle\Service\SessionService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PaymentController extends Controller
 {
@@ -42,27 +43,14 @@ class PaymentController extends Controller
 
         if($request->get("stripeToken")){
 
-            $token = $request->get("stripeToken");
+            $paymentService->proceedCheckout($request->get("stripeToken"));
 
-            $customer = \Stripe\Customer::create(array(
-                'email' => $orderService->getContactMail(),
-                'source'  => $token
-            ));
+            $orderService->Succeed();
 
-            $charge = \Stripe\Charge::create(array(
-                'customer' => $customer->id,
-                'amount'   => $orderService->getTotalAmountToStrip(),
-                'currency' => 'eur'
-            ));
-
-            // if ok
-            // register on database
-            // send a mail with tickets
-            // clean session
             // show successfull page
 
         }
-
+        return new Response("<html><body><h1>SUCCESS</h1></body></html>");
 
     }
 }

@@ -11,6 +11,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Order;
 use AppBundle\Entity\Ticket;
+use AppBundle\Exception\ZeroAmountException;
 use AppBundle\Service\MessagesFlashService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -140,6 +141,9 @@ class OrderService
             $this->calculateTicketPrice($order, $ticket,$ticket->getDiscount());
 
         }
+        if($order->getTotalPrice() === 0){
+            throw new ZeroAmountException("Il n'est pas possible de commander uniquement des billets pour enfant en bas âge.");
+        }
         $this->sessionsService->saveOrderSession($order);
     }
 
@@ -156,8 +160,10 @@ class OrderService
         $price = self::BABY_PRICE;
 
         switch(true){
+
             case ($age >= self::MIN_CHILD && $age <= self::MAX_CHILD):
                 $price =  self::CHILD_PRICE * $this->getQuotient($order->getTicketType());
+                $ticket->setDiscount(false);// child cannot have a discount ticket
                 $ticket->setCategory(self::CHILD);
                 break;
 
@@ -184,6 +190,7 @@ class OrderService
             default:
                 $price = self::BABY_PRICE * $this->getQuotient($order->getTicketType());
                 $ticket->setCategory(self::BABY);
+                $ticket->setDiscount(false);// baby cannot have a discount ticket
                 break;
         }
 
@@ -259,6 +266,37 @@ class OrderService
 
         return self::CENT * ($this->sessionsService->getOrderSession()->getTotalPrice());
     }
+
+    public function succeed(){
+
+        // set purchaseDate
+
+        // set resevation code
+
+        // register on database
+        $this->saveInDataBase();
+
+        // send a mail with tickets
+        $this->sendTickets();
+
+        $mail = $this->sessionsService->getOrderSession()->getMailContact();
+
+        // clean session
+        $this->sessionsService->deleteOrderInSession();
+
+        $this->mfs->messageSuccess("Tansaction validée");
+        $this->mfs->messageSuccess("Les tickets ont été envoyés à l'adresse '".$mail."'' .");
+    }
+
+    private function saveInDataBase(){
+
+    }
+
+    private function sendTickets(){
+
+    }
+
+
 
 }
 
