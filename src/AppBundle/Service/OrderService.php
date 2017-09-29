@@ -17,7 +17,6 @@ use AppBundle\Service\MessagesFlashService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\Form;
 
 /**
@@ -45,9 +44,6 @@ class OrderService
      * @var SessionService
      */
     protected $sessionsService;
-
-
-    protected $container;
 
     /* NUMBERS */
 
@@ -94,14 +90,12 @@ class OrderService
     public function __construct(EntityManagerInterface $entityManager,
                                 DateService $dateService,
                                 MessagesFlashService $messageFlashService,
-                                SessionService $sessionService,
-                                ContainerBuilder $container)
+                                SessionService $sessionService)
     {
         $this->dateService = $dateService;
         $this->em = $entityManager;
         $this->mfs = $messageFlashService;
         $this->sessionsService = $sessionService;
-        $this->container = $container;
     }
 
     /**
@@ -355,10 +349,6 @@ class OrderService
      * send tickets by mail
      */
     private function sendTickets(){
-        $mailer = $this->container->get('mailer');
-        $twig = $this->container->get('twig');
-        $mailer = new LouvreMailer($mailer,$twig);
-        $mailer->sendTickets($this->sessionsService->getOrderSession());
     }
 
 
