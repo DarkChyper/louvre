@@ -41,31 +41,10 @@ class HomeController extends Controller
     /**
      * @Route("/testing", name="testing")
      */
-    public function testAction(SessionService $sessionService){
-        $sessionService->deleteOrderInSession();
-        $order = $sessionService->getOrCreateOrderSession();
-        $order->setTicketNumber(1);
-        $order->setMailContact("simon@lhoir.me");
-        $order->setTicketType("FULL");
-        $visitDate = new \DateTime("now");
-        $visitDate->setDate(2017,11,30);
-        $order->setVisitDate($visitDate);
-        $order->setTotalPrice(16);
+    public function testAction( OrderService $orderService){
 
-        $ticket = new Ticket();
-        $ticket->setFname("Simon");
-        $ticket->setName("Lhoir");
-        $ticket->setCategory("std");
-        $date = new \DateTime("now");
-        $date->setDate(1986,03,04);
-        $ticket->setBirth($date);
-        $ticket->setDiscount(false);
-        $ticket->setPrice(16);
-        $ticket->setCountry("FR");
 
-        $order->addTicket($ticket);
-
-        $sessionService->saveOrderSession($order);
+        $orderService->testing();
 
         return new RedirectResponse($this->generateUrl('payment'));
 

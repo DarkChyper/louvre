@@ -387,6 +387,33 @@ class OrderService
         return $mailer->sendTickets($order);
     }
 
+
+    public function testing(){
+        $this->sessionsService->deleteOrderInSession();
+        $order = $this->sessionsService->getOrCreateOrderSession();
+        $order->setTicketNumber(1);
+        $order->setMailContact("simon@lhoir.me");
+        $order->setTicketType("FULL");
+        $visitDate = new \DateTime("now");
+        $visitDate->setDate(2017,11,30);
+        $order->setVisitDate($visitDate);
+        $order->setTotalPrice(16);
+
+        $ticket = new Ticket();
+        $ticket->setFname("Simon");
+        $ticket->setName("Lhoir");
+        $ticket->setCategory("std");
+        $date = new \DateTime("now");
+        $date->setDate(1986,03,04);
+        $ticket->setBirth($date);
+        $ticket->setDiscount(false);
+        $ticket->setPrice(16);
+        $ticket->setCountry("FR");
+
+        $order->addTicket($ticket);
+
+        $this->sessionsService->saveOrderSession($order);
+    }
 }
 
 
