@@ -11,6 +11,7 @@ use AppBundle\Service\PaymentService;
 use AppBundle\Service\SessionService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -41,17 +42,12 @@ class PaymentController extends Controller
      */
     public function checkoutAction(Request $request, OrderService $orderService, PaymentService $paymentService){
 
-        if($request->get("stripeToken")){
 
-            $paymentService->proceedCheckout($request->get("stripeToken"));
+        $paymentService->proceedCheckout($request->get("stripeToken"));
 
-            $orderService->Succeed();
+        $orderService->Succeed();
 
-            // show successfull page
-
-        }
-        return new Response("<html><body><h1>SUCCESS</h1></body></html>");
-
+        return new RedirectResponse($this->generateUrl('homepage'));
     }
 }
 

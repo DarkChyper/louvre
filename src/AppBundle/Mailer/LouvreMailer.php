@@ -31,12 +31,13 @@ class LouvreMailer
 
     /**
      * @param Order $order
+     * @return int number of mail sent if 0 => error
      */
     public function sendTickets(Order $order){
 
         $message = (new \Swift_Message("Vos billets du Louvres."));
 
-        $logo = $message->embed(\Swift_Image::fromPath('images/logo-louvre.jpg'));
+        $logo = $message->embed(\Swift_Image::fromPath('images/louvre_logo_mail.jpg'));
         $body = $this->twig->render('mail\tickets.html.twig', array('order' => $order, 'logo' => $logo));
 
         $message->setBody($body,'text/html');
@@ -45,7 +46,8 @@ class LouvreMailer
         $message->addFrom("contact-louvre@simon-lhoir.fr");
 
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
+
     }
 
 }

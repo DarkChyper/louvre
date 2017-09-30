@@ -24,14 +24,14 @@
                 {{ form_widget(ticket.birth, {
                     'attr': {
                         'class': 'dateBirthPicker validate center-block',
-                        'onchange': 'calculateTicketPrice('~ numberOfTicket ~'); calculateTotalPrice('~ ticketsForm.tickets|length ~');'
+                        'onchange': 'calculateTicketPrice('~ numberOfTicket ~',"'~ order.ticketType ~'"); calculateTotalPrice('~ ticketsForm.tickets|length ~',"'~ order.ticketType ~'");'
 
                 } }
                 ) }}
                 <div class="center">
                     {{ form_widget(ticket.discount,{
                         'attr': {
-                            'onchange': 'setDiscountInfo('~ numberOfTicket ~'); calculateTicketPrice('~ numberOfTicket ~'); calculateTotalPrice('~ ticketsForm.tickets|length ~');'
+                            'onchange': 'setDiscountInfo('~ numberOfTicket ~'); calculateTicketPrice('~ numberOfTicket ~',"'~ order.ticketType ~'"); calculateTotalPrice('~ ticketsForm.tickets|length ~',"'~ order.ticketType ~'");'
                         }
                     }) }}
                     {{ form_label(ticket.discount) }}

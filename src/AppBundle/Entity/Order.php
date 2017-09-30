@@ -77,7 +77,7 @@ class Order
     protected $ticketType;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="order",cascade={"persist"})
      */
     protected $tickets;
 
@@ -279,6 +279,7 @@ class Order
      */
     public function addTicket(\AppBundle\Entity\Ticket $ticket)
     {
+        $ticket->setOrder($this);
         $this->tickets[] = $ticket;
 
         return $this;

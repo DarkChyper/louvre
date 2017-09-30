@@ -31,7 +31,7 @@ class Ticket
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="tickets")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      *
      */
     protected $order;

@@ -65,6 +65,11 @@ hr{
     margin-bottom: 2em !important;
 }
 
+hr.full{
+    width: 100% !important;
+    background-color: grey !important;
+}
+
 input, select{
     display: block !important;
     margin-left: auto !important;

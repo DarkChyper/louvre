@@ -10,21 +10,22 @@
 
 <p>Bonjour,</p>
 
-<p>Vous venez de faira l'achats de tickets d'entrée pour le musée du Louvre et nous vous en remercions.</p>
+<p>Vous venez d'effectuer un achats sur louvre.simon-lhoir.fr et nous vous en remercions.</p>
 
-<p>Récapitulatif de votre commande : </p>
+<p>Voici un récapitulatif de votre commande : </p>
 
-<p>{{ order.ticketNumber }} billets {{ order.ticketType }} pour le {{ order.visitDate }}</p>
+<p>{{ order.ticketNumber }} billet·s {% if order.ticketType == "HALF" %}demi-{% endif %}journée pour le {{ order.visitDate|date("d/m/Y") }}</p>
 <p>----</p>
 {% for ticket in order.tickets %}
-    <p>{{ ticket.fname }} {{ ticket.name }} {{ ticket.country }} {{ ticket.birth|date("d/m/Y") }} : {{ ticket.price }}€ }}
+    <p>{{ ticket.fname }} {{ ticket.name }} {{ ticket.country }} {{ ticket.birth|date("d/m/Y") }} : {{ ticket.price }}€ <br />
         {% if ticket.discount %}<br />Un justificatif sera nécessaire pour valider l'entrée du musée {% endif %}
     </p>
 {% endfor %}
 <p>----</p>
-<p>Pour un total de {{ order.totalPrice }}</p>
+<p>Pour un total de {{ order.totalPrice }}€</p>
 
 <p>Le numéro de réservation est le {{ order.bookingCode }}, il est nécessaire pour entrer dans le musée.</p>
+
 
 <p></p>
 <p>Cordialement,</p>

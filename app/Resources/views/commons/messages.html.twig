@@ -5,7 +5,7 @@
 {% for label, messages in app.flashes %}
     {% for message in messages %}
         <div class="card card-{{ label }} center">
-            {{ message }}
+            {{ message|nl2br }}
         </div>
     {% endfor %}
 {% endfor %}

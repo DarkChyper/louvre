@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Form;
+use Twig\Environment;
 
 /**
  * Class OrderService
@@ -25,6 +26,8 @@ use Symfony\Component\Form\Form;
  */
 class OrderService
 {
+    const SEND_FAIL = "Le mail contenants les ticket n'a pu être envoyé.\n\r Veuillez nous contacter à louvre@simon-lhoir.fr avec votre numéro de réservation";
+    const ZERO_AMOUNT_EXCEPTION_MSG = "Il n'est pas possible de commander uniquement des billets pour enfant en bas âge.";
     /**
      * @var DateService
      */
@@ -44,6 +47,16 @@ class OrderService
      * @var SessionService
      */
     protected $sessionsService;
+
+    /**
+     * @var Environment
+     */
+    protected $twig;
+
+    /**
+     * @var \Swift_Mailer
+     */
+    protected $mailer;
 
     /* NUMBERS */
 
@@ -66,10 +79,10 @@ class OrderService
     CONST DISCOUNT_PRICE    = 10;
 
     /* TICKET CATEGORY */
-    CONST BABY              = "BBY";
-    CONST CHILD             = "CHD";
-    CONST STANDARD          = "STD";
-    CONST SENIOR            = "SNR";
+    CONST BABY              = "bby";
+    CONST CHILD             = "chd";
+    CONST STANDARD          = "std";
+    CONST SENIOR            = "snr";
 
     /* QUOTIENT */
     CONST FULL_QUOTIENT     = 1.0;
@@ -79,7 +92,7 @@ class OrderService
     CONST MSG_NOT_ENOUGH_TICKET = "Il n'y a plus assez de place disponible pour votre réservation. Essayer de réduire le nombre de place ou de choisir une autre date.";
     const TANSACTION_VALIDEE    = "Tansaction validée";
     const TICKETS_SENT_TO       = "Les tickets ont été envoyés à l'adresse '";
-    const BOOKING_CODE_MSG      = "La référence de votre achat est : '";
+    const BOOKING_CODE_MSG      = "Votre numéro de réservation est : '";
     const NOT_ALPHA_NUM_REGEX = "[^a-zA-Z0-9\ ]";
     const EMPTY_STRING = "";
 
@@ -91,13 +104,16 @@ class OrderService
                                 DateService $dateService,
                                 MessagesFlashService $messageFlashService,
                                 SessionService $sessionService,
-                                ContainerBuilder $container
+                                Environment $twig,
+                                \Swift_Mailer $mailer
                                 )
     {
         $this->dateService = $dateService;
         $this->em = $entityManager;
         $this->mfs = $messageFlashService;
         $this->sessionsService = $sessionService;
+        $this->twig = $twig;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -164,7 +180,7 @@ class OrderService
 
         }
         if($order->getTotalPrice() === 0){
-            throw new ZeroAmountException("Il n'est pas possible de commander uniquement des billets pour enfant en bas âge.");
+            throw new ZeroAmountException(self::ZERO_AMOUNT_EXCEPTION_MSG);
         }
         $this->sessionsService->saveOrderSession($order);
     }
@@ -294,13 +310,15 @@ class OrderService
      */
     public function succeed(){
 
-        $this->setPurchaseDate();
+        $order = $this->sessionsService->getOrderSession();
 
-        $this->setBookingCode();
+        $this->setPurchaseDate($order);
 
-        $this->saveInDataBase();
+        $this->setBookingCode($order);
 
-        $this->sendTickets();
+        $this->saveInDataBase($order);
+
+        $sent = $this->sendTickets($order);
 
         $mail = $this->sessionsService->getOrderSession()->getMailContact();
         $bookingCode = $this->sessionsService->getOrderSession()->getBookingCode();
@@ -308,51 +326,65 @@ class OrderService
         // clean session
         $this->sessionsService->deleteOrderInSession();
 
-        $this->mfs->messageSuccess(self::TANSACTION_VALIDEE);
-        $this->mfs->messageSuccess(self::TICKETS_SENT_TO .$mail."' .");
-        $this->mfs->messageSuccess(self::BOOKING_CODE_MSG .$bookingCode."' .");
+        if($sent === 0){
+            $this->mfs->messageSuccess(self::TANSACTION_VALIDEE
+                . "\n\r"
+                . "' .\n\r"
+                . self::BOOKING_CODE_MSG
+                . $bookingCode
+                . "' .");
+            $this->mfs->messageWarning(self::SEND_FAIL);
+
+        } else {
+            $this->mfs->messageSuccess(self::TANSACTION_VALIDEE
+                . "\n\r"
+                . self::TICKETS_SENT_TO
+                . $mail
+                . "' .\n\r"
+                . self::BOOKING_CODE_MSG
+                . $bookingCode
+                . "' .");
+        }
     }
 
     /**
      * Set the purchase date (now) in the order in session
      */
-    private function setPurchaseDate(){
-        $order = $this->sessionsService->getOrderSession();
+    private function setPurchaseDate(Order $order){
         $order->setPurchaseDate(new \DateTime('now'));
-        $this->sessionsService->saveOrderSession($order);
     }
 
     /**
      * generate a booking code like YYYYMMDDHHMMSSXX########
      * and save in order session
      */
-    private function setBookingCode(){
-        $order = $this->sessionsService->getOrderSession();
+    private function setBookingCode(Order $order){
         $string = preg_replace(self::NOT_ALPHA_NUM_REGEX, self::EMPTY_STRING, $order->getMailContact());
-        $bookingCode = $order->getPurchaseDate()->format("YmdHMS")
-            . substr($string, 0, 1)
-            . substr($string, strlen($string)-1, 1)
+        $bookingCode =((int) $order->getPurchaseDate()->format("sYmHdi") + (int) $order->getVisitDate()->format("HisYdm"))
+            . strtoupper(substr($string, 0, 1))
+            . strtoupper(substr($string, strlen($string)-1, 1))
             . $order->getTicketNumber()
             . ($order->getTotalPrice() * 100);
         $order->setBookingCode($bookingCode);
-        $this->sessionsService->saveOrderSession($order);
     }
 
     /**
      * save the order in session into the database
      */
-    private function saveInDataBase(){
+    private function saveInDataBase(Order $order){
 
-        $this->em->persist($this->sessionsService->getOrderSession());
+        $this->em->persist($order);
         $this->em->flush();
     }
 
     /**
      * send tickets by mail
+     * @return int number of mail sent
      */
-    private function sendTickets()
+    private function sendTickets(Order $order)
     {
-
+        $mailer = new LouvreMailer($this->mailer, $this->twig);
+        return $mailer->sendTickets($order);
     }
 
 }

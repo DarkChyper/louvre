@@ -112,7 +112,7 @@ class PaymentService
     const INTERN_ERROR_665_MSG                  = "(665) Une erreur interne est survenue.";
     const INTERN_ERROR_664_MSG                  = "(664) Une erreur interne est survenue.";
     const INTERN_ERROR_663_MSG                  = "(663) Une erreur interne est survenue.";
-    const INTERN_ERROR_662_MSG                  = "(662) Une erreur interne est survenue.";
+    const INTERN_ERROR_662_MSG                  = "La page a été rechargée mais la nouvelle demande de transaction a été bloquée.";
     const INTERN_ERROR_661_MSG                  = "(661) Une erreur interne est survenue.";
     const INTERN_ERROR_MSG                      = "Une erreur interne est survenue.";
 
@@ -143,12 +143,13 @@ class PaymentService
      */
     public function proceedCheckout($token){
 
+        try {
+
         $customer = \Stripe\Customer::create(array(
             'email' => $this->os->getContactMail(),
             'source'  => $token
         ));
 
-        try {
             \Stripe\Charge::create(array(
                 'customer' => $customer->id,
                 'amount' => $this->os->getTotalAmountToStrip(),

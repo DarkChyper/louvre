@@ -12,7 +12,7 @@ function calculateTicketPrice($foo,$ticketType){
 
     var $spanPrice = document.getElementById("price_"+$foo);
 
-    $spanPrice.textContent = definePrice($foo);
+    $spanPrice.textContent = definePrice($foo,$ticketType);
 
 }
 
@@ -21,11 +21,10 @@ function definePrice($foo,$ticketType){
     var $dateBirth = document.getElementById("order_tickets_tickets_"+$foo+"_birth");
 
     var $price = 0.00;
-
-    if($ticketType === "HALF"){
-        var $quotient = 0.5;
-    } else {
-        var $quotient = 1.0;
+    var $quotient = 1.0;
+    console.info($ticketType);
+    if($ticketType === "HALF") {
+        $quotient = 0.5;
     }
 
     if($dateBirth.value !== 'undefined' && $dateBirth.value !== ''){
@@ -86,12 +85,12 @@ function setDateObject($dateFR){
 
 }
 
-function calculateTotalPrice($foo){
+function calculateTotalPrice($foo,$ticketType){
 
     $totalPrice = 0.00;
 
     for(i=0; i < $foo; i++){
-        $totalPrice = $totalPrice + definePrice(i);
+        $totalPrice = $totalPrice + definePrice(i,$ticketType);
     }
 
     document.getElementById("total_price").textContent = $totalPrice+"€*";

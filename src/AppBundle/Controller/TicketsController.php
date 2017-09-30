@@ -37,6 +37,7 @@ class TicketsController extends Controller
 
         return $this->render('tickets/index.html.twig', array(
             "ticketsForm" => $ticketsForm->createView(),
+            "order" => $order,
         ));
     }
 }
