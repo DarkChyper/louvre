@@ -95,7 +95,8 @@ class OrderService
                                 DateService $dateService,
                                 MessagesFlashService $messageFlashService,
                                 SessionService $sessionService,
-                                ContainerBuilder $container)
+                                ContainerBuilder $container
+                                )
     {
         $this->dateService = $dateService;
         $this->em = $entityManager;
@@ -355,10 +356,7 @@ class OrderService
      * send tickets by mail
      */
     private function sendTickets(){
-        $mailer = $this->container->get('mailer');
-        $twig = $this->container->get('twig');
-        $mailer = new LouvreMailer($mailer,$twig);
-        $mailer->sendTickets($this->sessionsService->getOrderSession());
+
     }
 
 
