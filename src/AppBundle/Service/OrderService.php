@@ -350,7 +350,10 @@ class OrderService
     /**
      * send tickets by mail
      */
-    private function sendTickets(){
+    private function sendTickets()
+    {
+
+    }
 
 }
 
