@@ -17,7 +17,6 @@ use AppBundle\Service\MessagesFlashService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\Form;
 
 /**
@@ -45,9 +44,6 @@ class OrderService
      * @var SessionService
      */
     protected $sessionsService;
-
-
-    protected $container;
 
     /* NUMBERS */
 
@@ -102,7 +98,6 @@ class OrderService
         $this->em = $entityManager;
         $this->mfs = $messageFlashService;
         $this->sessionsService = $sessionService;
-        $this->container = $container;
     }
 
     /**
@@ -356,10 +351,6 @@ class OrderService
      * send tickets by mail
      */
     private function sendTickets(){
-
-    }
-
-
 
 }
 

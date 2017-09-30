@@ -17,7 +17,7 @@
 <p>{{ order.ticketNumber }} billets {{ order.ticketType }} pour le {{ order.visitDate }}</p>
 <p>----</p>
 {% for ticket in order.tickets %}
-    <p>{{ ticket.fname }} {{ ticket.name }} {{ ticket.country }} {{ ticket.birth|date("d/m/Y") : {{ ticket.price }}€ }}
+    <p>{{ ticket.fname }} {{ ticket.name }} {{ ticket.country }} {{ ticket.birth|date("d/m/Y") }} : {{ ticket.price }}€ }}
         {% if ticket.discount %}<br />Un justificatif sera nécessaire pour valider l'entrée du musée {% endif %}
     </p>
 {% endfor %}
@@ -29,3 +29,7 @@
 <p></p>
 <p>Cordialement,</p>
 <p>L'équipe du musée.</p>
+
+
+
+
