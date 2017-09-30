@@ -31,7 +31,7 @@ class Ticket
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="tickets")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      *
      */
     protected $order;
@@ -68,6 +68,21 @@ class Ticket
     protected $birth;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="integer")
+     *
+     */
+    protected $price;
+
+    /**
+     * @var string
+     * @ORM\Column(name="category", type="string", length=3)
+     * @Assert\NotBlank();
+     */
+    protected $category;
+
+    /**
     * @var int
     *
     * @ORM\Column(name="discount", type="boolean")
@@ -81,6 +96,7 @@ class Ticket
      */
     public function __construct()
     {
+        $this->price= 0;
     }
 
     /**
@@ -194,6 +210,40 @@ class Ticket
     {
         $this->discount = $discount;
     }
+
+    /**
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+
 
 }
 

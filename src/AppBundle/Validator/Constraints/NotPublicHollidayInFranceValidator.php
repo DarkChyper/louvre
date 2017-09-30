@@ -25,7 +25,7 @@ class NotPublicHollidayInFranceValidator extends ConstraintValidator
     {
         if($this->dateService->isPublicHolidayInFrance($value)){
             $this->context->buildViolation($constraint->message)
-                ->setParameter("date",$value)
+                ->setParameter("{{ date }}",$value->format("d/m/Y"))
                 ->addViolation();
         }
     }

@@ -36,6 +36,6 @@ services:
 
     #listener to catch order session exception and redirect to homepage
     app.exception_listener:
-        class: AppBundle\EventListener\OrderSessionExceptionListener
+        class: AppBundle\EventListener\LouvreExceptionListener
         tags:
             - { name: kernel.event_listener, event: kernel.exception }

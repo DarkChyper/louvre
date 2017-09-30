@@ -50,10 +50,10 @@ class TicketType extends AbstractType
             ))
 
             ->add('discount', CheckboxType::class, array(
-                'mapped' => false,
+                'mapped' => true,
                 'required' => false,
                 'label' => 'Bénéficie d\'un tarif réduit',
-                'data' => false, // to uncheck by default
+
 
             ));
     }

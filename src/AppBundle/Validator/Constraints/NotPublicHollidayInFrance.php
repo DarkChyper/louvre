@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class NotPublicHollidayInFrance extends Constraint
 {
-    public $message = '"{{ date }} est un jour férié en France. Le musée sera fermé ce jour là.';
+    public $message = '{{ date }} est un jour férié en France. Il n\'est pas possible de réserver pour cette date.';
 }
 
 

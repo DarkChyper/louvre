@@ -14,6 +14,10 @@ use AppBundle\Exception\OrderSessionException;
 use SensioLabs\Security\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * Class SessionService
+ * @package AppBundle\Service
+ */
 class SessionService
 {
     protected $session;
@@ -33,7 +37,9 @@ class SessionService
      */
     public function getOrCreateOrderSession(){
 
-        if(! $this->session->has("order")){
+        if(! $this->session->has("order") ||
+            $this->session->get("order") === null){
+
             $this->saveOrderSession(new Order());
         }
         return $this->session->get("order");
@@ -44,7 +50,10 @@ class SessionService
      * @return Order
      */
     public function getOrderSession(){
-        if(! $this->session->has("order") || $this->session->get("order")->getVisitDate() === null){
+        if(! $this->session->has("order") ||
+            $this->session->get("order") === null ||
+            $this->session->get("order")->getVisitDate() === null){
+
             throw new OrderSessionException("No order in session");
         }
         return $this->session->get("order");
@@ -55,6 +64,13 @@ class SessionService
      */
     public function saveOrderSession(Order $order){
         $this->session->set("order", $order);
+    }
+
+    /**
+     * remove order from session
+     */
+    public function deleteOrderInSession(){
+        $this->session->remove("order");
     }
 
 }

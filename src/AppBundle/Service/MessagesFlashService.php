@@ -6,7 +6,8 @@ namespace AppBundle\Service;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * Service permattant de mettre en session des messages flash Ã  destination de l'utilisateur
+ * Class MessagesFlashService
+ * @package AppBundle\Service
  */
 class MessagesFlashService
 {

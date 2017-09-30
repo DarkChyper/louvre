@@ -73,12 +73,7 @@ function dayOfWeek($date){
     var $a = $year - $c;
     var $m = ($month + (12 * $c)) - 2;
     return ($day + $a + Math.floor($a / 4) - Math.floor($a/100) + Math.floor($a/400) + Math.floor((31 * $m)/12)) %7;
-    /*
-    if($month >= 3){
-        return  ( Math.floor((23 * $month)/9) + $day + 4 + $year + Math.floor($year/4) - Math.floor($year/100) + Math.floor($year/400) - 2 ) % 7;
-    } else {
-        return ( Math.floor((23 * $month) /9 ) + $day + 4 + $year + Math.floor($year/4) - Math.floor($year/100) + Math.floor($year/400)) %7;
-    }*/
+
 
 }
 

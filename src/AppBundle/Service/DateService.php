@@ -8,7 +8,10 @@
 
 namespace AppBundle\Service;
 
-
+/**
+ * Class DateService
+ * @package AppBundle\Service
+ */
 class DateService
 {
 
@@ -41,26 +44,13 @@ class DateService
     }
 
     /**
-     * @param \DateTime $date
-     * @return int Age
+     * @param \DateTime $birth
+     * @param \DateTime $visit
+     * @return int
      */
-    public function calculateAge(\DateTime $date){
-        $year = intval($date->format("Y"));
-        $month = intval($date->format("m"));
-        $day = intval($date->format("d"));
+    public function calculateAge(\DateTime $birth, \DateTime $visit){
 
-        $now = new \DateTime();
-        $year2d = intval($now->format("Y"));
-        $month2d = intval($now->format("m"));
-        $day2d = intval($now->format("d"));
-
-        $age = $year2d - $year;
-
-        if(($month === $month2d && $day2d < $day)||($month2d < $month)){
-            $age --;
-        }
-
-        return $age;
+        return $visit->diff($birth)->y;
 
     }
 

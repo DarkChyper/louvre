@@ -15,8 +15,47 @@
         <h2 class="txt-red"><a href="{{ path('tickets') }}">Vos billets</a></h2>
     </div>
     <div class="col s12 black border-dark-red">
-        <h2 class="txt-red">Paiement</h2>
+        <h2 class="txt-red"><a href="#">Paiement</a></h2>
     </div>
+
+
+    {% include("payment/blocks/basket.block.html.twig") %}
+
+    <div class="col s12 m8 offset-m2">
+        <p>Une fois le paiement validé, vous recevrez les billets électronique par mail à cette adresse :</p>
+        <div class="txt-blue center">{{ order.mailContact }}</div>
+    </div>
+
+    <div class="col s12">
+        <h4 class="center">Total du panier</h4>
+        <hr />
+        <div class="center">
+            <span id="total_price" class="txt-big txt-blue">{{ order.totalPrice }}€</span>
+        </div>
+    </div>
+
+    <div class="col s12 m2 offset-m5 center">
+        <form action="{{  path('checkout') }}" method="post">
+            <script
+
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-label="Payer"
+                    data-key="{{ publishableKey }}"
+                    data-amount="{{ amount }}"
+                    data-name="Billetterie du Louvre"
+                    data-description="Payement sécurisé par stripe.com"
+                    data-locale="fr"
+                    data-currency="eur"
+                    data-email="{{ order.mailContact }}"
+                    data-allowRememberMe="false"
+                    data-zip-code="false">
+
+            </script>
+        </form>
+    </div>
+
+
+
 
 
 

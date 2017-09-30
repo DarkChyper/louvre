@@ -36,6 +36,13 @@ body{
     color: #c82d00;
 }
 
+a, a:visited{
+    color: #c82d00 !important;
+}
+
+a:hover{
+    color: #23C0D7 !important;
+}
 .txt-blue{
     color: #23C0D7;
 }
@@ -56,6 +63,11 @@ hr{
     color: white;
     background-color: white;
     margin-bottom: 2em !important;
+}
+
+hr.full{
+    width: 100% !important;
+    background-color: grey !important;
 }
 
 input, select{
@@ -135,4 +147,17 @@ img.spaced{
     margin-top: 1em !important;
 }
 
+h2{
+    font-size: 2.5rem !important;
+    line-height: 80% !important;
+    margin: 1rem 0 !important;
+}
 
+
+@media only screen and (max-width: 992px) {
+    h2{
+        font-size: 3.56rem !important;
+        line-height: 110% !important;
+        margin: 1.78rem 0 1.424rem 0 !important;
+    }
+}

@@ -10,6 +10,7 @@ use AppBundle\Service\OrderService;
 use AppBundle\Service\SessionService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class TicketsController extends Controller
@@ -31,12 +32,12 @@ class TicketsController extends Controller
         if($ticketsForm->isSubmitted() && $ticketsForm->isValid()){
 
             $orderService->calculateTotalPrice();
-
-            return $this->forward('AppBundle:Payment:payment');
+            return new RedirectResponse($this->generateUrl('payment'));
         }
 
         return $this->render('tickets/index.html.twig', array(
             "ticketsForm" => $ticketsForm->createView(),
+            "order" => $order,
         ));
     }
 }
