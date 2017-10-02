@@ -2,6 +2,7 @@
 
 namespace Tests\AppBundle\Service;
 
+use AppBundle\Entity\Order;
 use AppBundle\Service\SessionService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -14,11 +15,26 @@ class SessionServiceTest extends TestCase
      * @test
      * @expectedException \AppBundle\Exception\OrderSessionException
      */
-    public function getOrCreateOrderSession(){
+    public function getOrderSession(){
         $session = new Session(new MockArraySessionStorage());
 
         $sessionService = new SessionService($session);
 
         $sessionService->getOrderSession();
     }
+
+    /**
+     * @test
+     */
+    public function getOrCreateOrderSession(){
+        $session = new Session(new MockArraySessionStorage());
+
+        $sessionService = new SessionService($session);
+
+        $order = new Order();
+
+        $this->assertEquals($order, $sessionService->getOrCreateOrderSession());
+    }
+
 }
+

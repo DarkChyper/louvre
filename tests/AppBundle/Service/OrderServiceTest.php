@@ -3,6 +3,7 @@
 namespace Tests\AppBundle\Service;
 
 
+use AppBundle\Entity\Order;
 use AppBundle\Service\DateService;
 use AppBundle\Service\MessagesFlashService;
 use AppBundle\Service\OrderService;
@@ -21,7 +22,6 @@ class OrderServiceTest extends KernelTestCase
     private $mailer;
 
     public function setUp(){
-
         $this->dateService = new DateService();
 
         self::bootKernel();
@@ -66,5 +66,5 @@ class OrderServiceTest extends KernelTestCase
         ];
     }
 
-
 }
+
