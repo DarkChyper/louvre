@@ -20,7 +20,19 @@ jQuery(function($){
     $.datepicker.setDefaults($.datepicker.regional['fr']);
 });
 
-$( ".datepicker" ).datepicker(  { minDate: 0, maxDate: "+2Y", calendarWeeks: true, editable: true } , $.datepicker.regional[ "fr" ]);
+var forbidden = ["Mar","Dim"];
+
+$( ".datepicker" ).datepicker(  {
+    beforeShowDay: function(date){
+        var string = jQuery.datepicker.formatDate('D',date);
+        return [ forbidden.indexOf(string) === -1 ];
+    },
+    minDate: 0,
+    maxDate: "+2Y",
+    calendarWeeks: true,
+    editable: true
+
+} , $.datepicker.regional[ "fr" ]);
 
 $( ".dateBirthPicker" ).datepicker( {minDate: "-120Y", maxDate: 0, calendarWeeks: true, editable: true, changeMonth: true, yearRange: "-100:+0", changeYear: true } , $.datepicker.regional[ "fr" ]);
 

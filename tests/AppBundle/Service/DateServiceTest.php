@@ -1,8 +1,9 @@
 <?php
 
 
-namespace AppBundle\Service;
+namespace Tests\AppBundle\Service;
 
+use AppBundle\Service\DateService;
 use PHPUnit\Framework\TestCase;
 
 class DateServiceTest extends TestCase
