@@ -38,19 +38,6 @@ class HomeController extends Controller
         ));
     }
 
-    /**
-     * @Route("/testing", name="testing")
-     */
-    public function testAction( OrderService $orderService){
-
-
-        $orderService->testing();
-
-        return new RedirectResponse($this->generateUrl('payment'));
-
-
-
-    }
 }
 
 

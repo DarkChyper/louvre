@@ -20,7 +20,7 @@ class PaymentController extends Controller
     /**
      * @Route("/payment", name="payment")
      */
-    public function paymentAction(Request $request, SessionService $sessionService, OrderService $orderService, PaymentService $paymentService)
+    public function paymentAction( SessionService $sessionService, OrderService $orderService, PaymentService $paymentService)
     {
 
         $order = $sessionService->getOrderSession();
@@ -40,12 +40,12 @@ class PaymentController extends Controller
     /**
      * @Route("/checkout", name="checkout")
      */
-    public function checkoutAction(Request $request, OrderService $orderService, PaymentService $paymentService){
+    public function checkoutAction(Request $request, OrderService $orderService, PaymentService $paymentService, SessionService $sessionService){
 
 
         $paymentService->proceedCheckout($request->get("stripeToken"));
 
-        $orderService->Succeed();
+        $orderService->Succeed($sessionService->getOrderSession());
 
         return new RedirectResponse($this->generateUrl('homepage'));
     }
