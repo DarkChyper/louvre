@@ -41,7 +41,7 @@
 
 
         {% block footer %}
-
+            {% include('commons/footer.html.twig') %}
         {% endblock %}
 
         {% block javascripts %}
@@ -49,6 +49,13 @@
             <script src="{{ asset('js/jquery/jquery-ui.min.js') }}"></script>
             <script src="{{ asset('js/materialize.min.js') }}"></script>
             <script src="{{ asset('js/dateJS.js') }}"></script>
+            <script>
+                $( document ).ready(function() {
+                    $('.modal').modal();
+                    $('#cgvmodal').on('click', function() {
+                    });
+                });
+            </script>
 
         {% endblock javascripts %}
 
