@@ -22,7 +22,9 @@ class OrderServiceTest extends KernelTestCase
     private $mailer;
 
     public function setUp(){
-        $this->dateService = new DateService();
+        $this->dateService = $this->getMockBuilder(DateService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         self::bootKernel();
 
@@ -30,9 +32,13 @@ class OrderServiceTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->sessionService = new SessionService(new Session(new MockArraySessionStorage()));
+        $this->sessionService = $this->getMockBuilder(SessionService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->messageFlashService = new MessagesFlashService(new Session(new MockArraySessionStorage()));
+        $this->messageFlashService = $this->getMockBuilder(MessagesFlashService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->twig = $this->getMockBuilder('Twig\Environment')
                         ->disableOriginalConstructor()
@@ -54,17 +60,18 @@ class OrderServiceTest extends KernelTestCase
 
         $orderService = new OrderService($this->entityManager,$this->dateService,$this->messageFlashService,$this->sessionService,$this->twig, $this->mailer);
 
-        $this->assertSame($expected, $orderService->areEnoughtTickets($date,$nbrTicket));
+        $this->assertSame($expected, $orderService->areEnoughtTickets(\DateTime::createFromFormat('j-m-Y', $date),$nbrTicket));
 
     }
 
     public function enoughTicketsProvider(){
         return [
-            [\DateTime::createFromFormat('j-m-Y H:i:s', '04-03-2018 00:00:00'),10,true],
-            [\DateTime::createFromFormat('j-m-Y H:i:s', '04-03-2019 00:00:00'),1000,true],
-            [\DateTime::createFromFormat('j-m-Y H:i:s', '04-03-2020 00:00:00'),1001,false],
+            ['04-03-2018',10,true],
+            ['04-03-2019',1000,true],
+            ['04-03-2020',1001,false],
         ];
     }
+
 
 }
 
