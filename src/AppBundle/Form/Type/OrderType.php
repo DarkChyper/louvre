@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -57,9 +58,12 @@ class OrderType extends AbstractType
                     10 => 10,
                 )
             ))
-            ->add('mailContact', EmailType::class, array(
+            ->add('mailContact', RepeatedType::class, array(
+                'type' => EmailType::class,
+                'invalid_message' => 'Les adresses mail doivent êtres identiques.',
                 'required' => true,
-                'label' => " ",
+                'first_options'  => array('label' => ''),
+                'second_options' => array('label' => ''),
 
             ))
             ->add('suivant',      SubmitType::class

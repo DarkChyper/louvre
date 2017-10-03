@@ -15,13 +15,12 @@ namespace AppBundle\Service;
 class DateService
 {
 
-    protected $mfs;
     /**
      * DateService constructor.
      */
-    public function __construct(MessagesFlashService $messagesFlashService)
+    public function __construct()
     {
-        $this->mfs = $messagesFlashService;
+
     }
 
 

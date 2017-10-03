@@ -4,6 +4,10 @@ body{
     /*background-image: url(../images/bg_desktop.jpg);*/
 }
 
+th span{
+    color: black !important;
+}
+
 .invisible{
     display: none;
 }

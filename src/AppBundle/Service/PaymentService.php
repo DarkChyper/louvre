@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Service;
+use AppBundle\Entity\Order;
 use AppBundle\Exception\CheckoutException;
 
 

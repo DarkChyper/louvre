@@ -41,11 +41,6 @@
             </div>
         {% endif %}
 
-        {{ form_errors(orderForm.ticketType, {
-            'attr': {
-                'class': 'card card-error center',
-            }
-        }) }}
         <div class="col s12 center-align">
         {{ form_widget(orderForm.ticketType, {
             'attr': {
@@ -66,11 +61,6 @@
             </div>
         {% endif %}
 
-        {{ form_errors(orderForm.ticketNumber, {
-            'attr': {
-                'class': 'card card-error center',
-            }
-        }) }}
         <div class="col s12">
             {{ form_widget(orderForm.ticketNumber)
             }}
@@ -81,20 +71,27 @@
         <h4 class="center">Votre adresse mail</h4>
         <hr />
 
-        {% if form_errors(orderForm.mailContact) != null  %}
+        {% if form_errors(orderForm.mailContact.first) != null  %}
             <div class="card card-error center">
-                {{ form_errors(orderForm.mailContact) }}
+                {{ form_errors(orderForm.mailContact.first) }}
             </div>
         {% endif %}
 
-        {{ form_errors(orderForm.mailContact, {
-            'attr': {
-                'class': 'card card-error center',
-            }
-        }) }}
-        {{ form_widget(orderForm.mailContact, {
+
+        {{ form_widget(orderForm.mailContact.first, {
             'attr': {
                 'class': 'validate center-block',
+                'placeholder': ''
+            }
+        })
+        }}
+    </div>
+
+    <div class="line_form">
+        {{ form_widget(orderForm.mailContact.second, {
+            'attr': {
+                'class': 'validate center-block',
+                'placeholder': 'Vérification du mail'
             }
         })
         }}

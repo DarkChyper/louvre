@@ -120,9 +120,8 @@ class OrderService
      * Set $order->getTicketNumber() empty ticket
      * @param Order $order
      */
-    public function setEmptyTickets(){
+    public function setEmptyTickets(Order $order){
 
-        $order = $this->sessionsService->getOrderSession();
 
         $order->setTotalPrice(self::ZERO);
 
@@ -171,8 +170,7 @@ class OrderService
      *
      * @param Order $order
      */
-    public function calculateTotalPrice(){
-        $order = $this->sessionsService->getOrderSession();
+    public function calculateTotalPrice(Order $order){
         $ticketsArray = $order->getTickets();
         foreach($ticketsArray as $ticket){
 
@@ -308,9 +306,7 @@ class OrderService
     /**
      * Checkout Succeed so generate and save tickets and mail
      */
-    public function succeed(){
-
-        $order = $this->sessionsService->getOrderSession();
+    public function succeed(Order $order){
 
         $this->setPurchaseDate($order);
 
@@ -387,33 +383,6 @@ class OrderService
         return $mailer->sendTickets($order);
     }
 
-
-    public function testing(){
-        $this->sessionsService->deleteOrderInSession();
-        $order = $this->sessionsService->getOrCreateOrderSession();
-        $order->setTicketNumber(1);
-        $order->setMailContact("simon@lhoir.me");
-        $order->setTicketType("FULL");
-        $visitDate = new \DateTime("now");
-        $visitDate->setDate(2017,11,30);
-        $order->setVisitDate($visitDate);
-        $order->setTotalPrice(16);
-
-        $ticket = new Ticket();
-        $ticket->setFname("Simon");
-        $ticket->setName("Lhoir");
-        $ticket->setCategory("std");
-        $date = new \DateTime("now");
-        $date->setDate(1986,03,04);
-        $ticket->setBirth($date);
-        $ticket->setDiscount(false);
-        $ticket->setPrice(16);
-        $ticket->setCountry("FR");
-
-        $order->addTicket($ticket);
-
-        $this->sessionsService->saveOrderSession($order);
-    }
 }
 
 
