@@ -120,9 +120,8 @@ class OrderService
      * Set $order->getTicketNumber() empty ticket
      * @param Order $order
      */
-    public function setEmptyTickets(){
+    public function setEmptyTickets(Order $order){
 
-        $order = $this->sessionsService->getOrderSession();
 
         $order->setTotalPrice(self::ZERO);
 
@@ -171,8 +170,7 @@ class OrderService
      *
      * @param Order $order
      */
-    public function calculateTotalPrice(){
-        $order = $this->sessionsService->getOrderSession();
+    public function calculateTotalPrice(Order $order){
         $ticketsArray = $order->getTickets();
         foreach($ticketsArray as $ticket){
 

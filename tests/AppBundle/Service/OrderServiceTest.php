@@ -4,6 +4,7 @@ namespace Tests\AppBundle\Service;
 
 
 use AppBundle\Entity\Order;
+use AppBundle\Entity\Ticket;
 use AppBundle\Service\DateService;
 use AppBundle\Service\MessagesFlashService;
 use AppBundle\Service\OrderService;
@@ -72,6 +73,89 @@ class OrderServiceTest extends KernelTestCase
         ];
     }
 
+    /**
+     * @test
+     * @dataProvider categoryTicketPriceProvider
+     * @param Order $orderExpected
+     * @param Order $order
+     */
+    public function categoryTicketPrice(Order $orderExpected, Order $order){
 
+
+        $orderService = new OrderService($this->entityManager,$this->dateService,$this->messageFlashService,$this->sessionService,$this->twig, $this->mailer);
+        $orderService->calculateTotalPrice($order);
+    }
+
+    public function categoryTicketPriceProvider(){
+        return [
+             // BABY TICKETS
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-2018", false, "FULL", 0),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-2018", false, "FULL"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-2018", false, "HALF", 0),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-2018", false, "HALF"),
+                true],
+            // CHILD TICKETS
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-2016", false, "FULL", 8),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-2016", false, "FULL"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-2016", false, "HALF", 4),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-2016", false, "HALF"),
+                true],
+            // STANDARD TICKETS
+            [$this->setOrderWithOneTicket("06-06-2020", "04-06-2008", false, "FULL", 16),
+                $this->setOrderWithOneTicket("06-06-2020", "04-06-2008", false, "FULL"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "04-06-2008", false, "HALF", 8),
+                $this->setOrderWithOneTicket("06-06-2020", "04-06-2008", false, "HALF"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "04-06-2008", true, "FULL", 10),
+                $this->setOrderWithOneTicket("06-06-2020", "04-06-2008", true, "FULL"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "04-06-2008", true, "HALF", 5),
+                $this->setOrderWithOneTicket("06-06-2020", "04-06-2008", true, "HALF"),
+                true],
+            // SENIOR TICKETS
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-1960", false, "FULL", 12),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-1960", false, "FULL"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-1960", false, "HALF", 6),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-1960", false, "HALF"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-1960", true, "FULL", 10),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-1960", true, "FULL"),
+                true],
+            [$this->setOrderWithOneTicket("06-06-2020", "05-06-1960", true, "HALF", 5),
+                $this->setOrderWithOneTicket("06-06-2020", "05-06-1960", true, "HALF"),
+                true],
+
+        ];
+    }
+
+    /**
+     * @param $visit String
+     * @param $birth String
+     * @param $discount true or false
+     * @param $type String FULL or HALF
+     * @param null $total int only for expected
+     * @return Order
+     */
+    public function setOrderWithOneTicket($visit, $birth, $discount, $type, $total=null){
+        $ticket = new Ticket();
+        $ticket->setDiscount($discount);
+        $ticket->setBirth(\DateTime::createFromFormat('j-m-Y', $birth));
+
+        $order = new Order();
+        $order->setTicketType($type);
+        $order->setVisitDate(\DateTime::createFromFormat('j-m-Y', $visit));
+
+        if($total !== null){
+            $ticket->setPrice($total);
+            $order->setTotalPrice($total);
+            $order->getTickets()->add($ticket);
+        }
+
+        return $order;
+    }
 }
 
