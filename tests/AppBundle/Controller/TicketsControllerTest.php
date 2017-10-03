@@ -24,3 +24,4 @@ class TicketsControllerTest extends WebTestCase
         $this->assertSame(302, $client->getResponse()->getStatusCode());
     }
 }
+

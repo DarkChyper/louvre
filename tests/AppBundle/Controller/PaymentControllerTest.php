@@ -35,3 +35,4 @@ class PaymentControllerTest extends WebTestCase
         $this->assertSame(302, $client->getResponse()->getStatusCode());
     }
 }
+
