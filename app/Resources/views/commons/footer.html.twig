@@ -1,16 +1,36 @@
 
-<!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+<div class="container">
+    <div class="row black border-dark-red padded">
+
+        <div class="col s12 m6 center">
+            <a class="modal-trigger" href="#cgvmodal">CGV</a><br />
+            <a href="mailto:louvre@simon-lhoir.fr">louvre@simon-lhoir.fr</a>
+        </div>
+
+        <div class="col s12 m6 center">
+            louvre.simon-lhoir.fr @2017<br />
+            <a  href="https://stripe.com/" target="_blank"><img src="{{ asset('images/powered_by_stripe.png')}}" alt="stripe.com" /></a>
+        </div>
+
+    </div>
+</div>
 
 <!-- Modal Structure -->
-<div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
+<div id="cgvmodal" class="modal">
+    <div class="modal-content grey darken-1">
         <h4>CGV louvre.simon-lhoir.fr</h4>
         <p>Ce site est un projet étudiant sans aucun rapport avec le musée du Louvre, sa billetterie ou son site internet.</p>
         <p>Il n'est pas possible d'obtenir de billets valides pour l'entrée du musée du Louvre ou du Louvre Lens via ce site.</p>
         <p>Le système de paiement en place est en mode démo, aucun achat ne peut normalement être validé.</p>
+        <p>Le site louvre.simon-lhoir.fr, son webmaster, son hébergeur et les personnes utilisant le code source de l'application ne peuvent être tenus responsable d'un éventuel achat effectué via ce site.</p>
+        <div class="card-warning center">Aucun remboursement, quel qu'il soit, ne pourra être réclamé.</div>
+        <p>Le site décline toute responsabilité en cas d'utilisation de billet(s) frauduleu(x) pour l'accès aux musée du Louvre et Louvre Lens.</p>
+        <p></p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Fermer</a>
+        <a href="#!" class="modal-action modal-close btn bgBlue">Fermer</a>
     </div>
 </div>
+
+
+

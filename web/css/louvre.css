@@ -59,6 +59,11 @@ a:hover{
     border: solid 4px #331107 !important;
 }
 
+.padded{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
 hr{
     width: 25%;
     line-height: 1 !important;
@@ -72,6 +77,14 @@ hr{
 hr.full{
     width: 100% !important;
     background-color: grey !important;
+}
+
+hr.before-footer{
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+    height:2px;
+    width: 100% !important;
+    background-color: #c82d00 !important;
 }
 
 input, select{
@@ -132,6 +145,10 @@ label{
 
 .line_form+.line_form{
     margin-top: 1em !important;
+}
+
+.stripe-button-el {
+    margin-bottom: 1em !important;
 }
 
 /* Header */
