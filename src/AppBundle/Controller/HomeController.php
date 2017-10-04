@@ -17,7 +17,7 @@ class HomeController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @Method("GET")
+     * @method("GET")
      */
     public function indexAction(Request $request, SessionService $sessionService)
     {
