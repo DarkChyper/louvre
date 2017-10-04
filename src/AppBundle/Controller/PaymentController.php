@@ -20,7 +20,7 @@ class PaymentController extends Controller
 {
     /**
      * @Route("/payment", name="payment")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     public function paymentAction( SessionService $sessionService, OrderService $orderService, PaymentService $paymentService)
     {
