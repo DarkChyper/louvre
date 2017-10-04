@@ -10,6 +10,7 @@ use AppBundle\Service\OrderService;
 use AppBundle\Service\PaymentService;
 use AppBundle\Service\SessionService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ class PaymentController extends Controller
 {
     /**
      * @Route("/payment", name="payment")
+     * @Method({"GET", "POST"})
      */
     public function paymentAction( SessionService $sessionService, OrderService $orderService, PaymentService $paymentService)
     {
@@ -39,6 +41,7 @@ class PaymentController extends Controller
 
     /**
      * @Route("/checkout", name="checkout")
+     * @Method({"GET", "POST"})
      */
     public function checkoutAction(Request $request, OrderService $orderService, PaymentService $paymentService, SessionService $sessionService){
 
