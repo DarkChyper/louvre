@@ -9,6 +9,7 @@ use AppBundle\Form\Type\TicketType;
 use AppBundle\Service\OrderService;
 use AppBundle\Service\SessionService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ class TicketsController extends Controller
 {
     /**
      * @Route("/tickets", name="tickets")
+     * @Method({"GET", "POST"})
      */
     public function ticketsAction(Request $request, OrderService $orderService, SessionService $sessionService)
     {
