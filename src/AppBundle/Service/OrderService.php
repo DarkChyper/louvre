@@ -165,10 +165,11 @@ class OrderService
         }
     }
 
+
     /**
      * Calculate total price depending of tickets
-     *
      * @param Order $order
+     * @return Order
      */
     public function calculateTotalPrice(Order $order){
         $ticketsArray = $order->getTickets();
@@ -181,6 +182,8 @@ class OrderService
             throw new ZeroAmountException(self::ZERO_AMOUNT_EXCEPTION_MSG);
         }
         $this->sessionsService->saveOrderSession($order);
+
+        return $order;
     }
 
 
@@ -188,7 +191,6 @@ class OrderService
      * @param $order Order
      * @param $age integer
      * @param $discount boolean
-     * @return int
      */
     private function calculateTicketPrice(Order $order,Ticket $ticket, $discount){
 
@@ -197,18 +199,18 @@ class OrderService
 
         switch(true){
 
-            case ($age >= self::MIN_CHILD && $age <= self::MAX_CHILD):
+            case ($age >= self::MIN_CHILD && $age < self::MAX_CHILD):
                 $price =  self::CHILD_PRICE * $this->getQuotient($order->getTicketType());
                 $ticket->setDiscount(false);// child cannot have a discount ticket
                 $ticket->setCategory(self::CHILD);
                 break;
 
-            case (($age > self::MAX_CHILD && $age < self::MIN_SENIOR) && !$discount):
+            case (($age >= self::MAX_CHILD && $age < self::MIN_SENIOR) && !$discount):
                 $price = self::STANDARD_PRICE * $this->getQuotient($order->getTicketType());
                 $ticket->setCategory(self::STANDARD);
                 break;
 
-            case (($age > self::MAX_CHILD  && $age < self::MIN_SENIOR) && $discount):
+            case (($age >= self::MAX_CHILD  && $age < self::MIN_SENIOR) && $discount):
                 $price = self::DISCOUNT_PRICE * $this->getQuotient($order->getTicketType());
                 $ticket->setCategory(self::STANDARD);
                 break;

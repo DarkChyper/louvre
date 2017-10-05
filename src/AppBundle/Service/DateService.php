@@ -48,7 +48,6 @@ class DateService
      * @return int
      */
     public function calculateAge(\DateTime $birth, \DateTime $visit){
-
         return $visit->diff($birth)->y;
 
     }
