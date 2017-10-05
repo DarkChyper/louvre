@@ -2,6 +2,10 @@
 body{
     color: white;
     /*background-image: url(../images/bg_desktop.jpg);*/
+
+    background-image: url("../images/bg_phone.png");
+    background-repeat: repeat-x;
+    #background-size: 100%;
 }
 
 th span{
@@ -174,11 +178,22 @@ h2{
     margin: 1rem 0 !important;
 }
 
+/* smartphones*/
+@media only screen and (max-width: 600px) {
+    body {
+        background-image: url("../images/bg_phone.png");
+        background-size: cover;
+    }
+}
+
 
 @media only screen and (max-width: 992px) {
+
     h2{
         font-size: 3.56rem !important;
         line-height: 110% !important;
         margin: 1.78rem 0 1.424rem 0 !important;
     }
+
+
 }
