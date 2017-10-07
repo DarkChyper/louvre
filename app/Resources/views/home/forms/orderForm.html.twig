@@ -10,7 +10,7 @@
     {% endif %}
 
     <div class="line_form">
-        <h4 class="center">Date de votre venue</h4>
+        <h3 class="center">Date de votre venue</h3>
         <hr />
 
         {% if form_errors(orderForm.visitDate) != null  %}
@@ -32,7 +32,7 @@
     </div>
 
     <div class="line_form">
-        <h4 class="center">Type de billet</h4>
+        <h3 class="center">Type de billet</h3>
         <hr />
 
         {% if form_errors(orderForm.ticketType) != null  %}
@@ -52,7 +52,7 @@
     </div>
 
     <div class="line_form">
-        <h4 class="center">Nombre de billet</h4>
+        <h3 class="center">Nombre de billet</h3>
         <hr />
 
         {% if form_errors(orderForm.ticketNumber) != null  %}
@@ -68,7 +68,7 @@
     </div>
 
     <div class="line_form">
-        <h4 class="center">Votre adresse mail</h4>
+        <h3 class="center">Votre adresse mail</h3>
         <hr />
 
         {% if form_errors(orderForm.mailContact.first) != null  %}

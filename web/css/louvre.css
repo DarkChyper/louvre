@@ -155,6 +155,10 @@ label{
     margin-bottom: 1em !important;
 }
 
+h3{
+    font-size: 2rem !important;
+}
+
 /* Header */
 #logo {
     margin: auto;
