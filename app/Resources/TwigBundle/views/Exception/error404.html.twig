@@ -1,0 +1,28 @@
+
+{% extends "base.html.twig" %}
+
+
+{% block title %}
+    Une erreur est survenue {{ status_text }} - {{ parent() }}
+{% endblock %}
+
+{% block infos %}
+{% endblock infos %}
+
+{% block body %}
+    <div class="col s12 black border-dark-red">
+        <h2 class="txt-red center">Page introuvable</h2>
+        <h3 class="center">Erreur 404</h3>
+    </div>
+
+    <div class="col s12 grey darken-1">
+       <h4 class="center"><a href="{{ path('homepage') }}">Revenir à page d'accueil</a></h4>
+    </div>
+
+    <div class="col s12 grey darken-1">
+        <img class="responsive-img center-block center" src="{{ asset('images/404.png') }}" alt="erreur 404" />
+    </div>
+
+{% endblock body %}
+
+
