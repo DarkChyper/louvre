@@ -11,6 +11,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Order;
 use AppBundle\Entity\Ticket;
+use AppBundle\Exception\NotFilledTicketsException;
 use AppBundle\Exception\ZeroAmountException;
 use AppBundle\Mailer\LouvreMailer;
 use AppBundle\Service\MessagesFlashService;
@@ -383,6 +384,25 @@ class OrderService
     {
         $mailer = new LouvreMailer($this->mailer, $this->twig);
         return $mailer->sendTickets($order);
+    }
+
+
+    /**
+     * Check if order is filled
+     * throw exception if not
+     * @param Order $order
+     */
+    public function checkOrder(Order $order){
+        $tickets = $order->getTickets();
+
+        foreach ($tickets as $ticket){
+            if($ticket->getName() === null ||
+                $ticket->getfName() === null ||
+                $ticket->getCountry() === null ||
+                $ticket->getBirth() === null){
+                throw new NotFilledTicketsException("Pour accéder au paiement, vous devez renseigner chaque billet.");
+            }
+        }
     }
 
 }

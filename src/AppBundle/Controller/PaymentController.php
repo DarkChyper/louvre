@@ -27,6 +27,8 @@ class PaymentController extends Controller
 
         $order = $sessionService->getOrderSession();
 
+        $orderService->checkOrder($order);
+
         $amount = $orderService->getTotalAmountToStrip();
 
         $publishableKey = $paymentService->getPublishableKey();
@@ -45,10 +47,11 @@ class PaymentController extends Controller
      */
     public function checkoutAction(Request $request, OrderService $orderService, PaymentService $paymentService, SessionService $sessionService){
 
+        $order = $sessionService->getOrderSession(); // protect from direct access here
 
         $paymentService->proceedCheckout($request->get("stripeToken"));
 
-        $orderService->Succeed($sessionService->getOrderSession());
+        $orderService->Succeed($order);
 
         return new RedirectResponse($this->generateUrl('homepage'));
     }

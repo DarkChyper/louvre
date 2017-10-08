@@ -9,6 +9,7 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Exception\CheckoutException;
+use AppBundle\Exception\NotFilledTicketsException;
 use AppBundle\Exception\OrderSessionException;
 use AppBundle\Exception\ZeroAmountException;
 use AppBundle\Service\MessagesFlashService;
@@ -40,6 +41,9 @@ class LouvreExceptionListener
             $event->setResponse($this->catchException('tickets',$exception->getMessage()));
         } elseif($exception instanceof CheckoutException) {
             $event->setResponse($this->catchException('payment',$exception->getMessage()));
+
+        }elseif($exception instanceof NotFilledTicketsException) {
+            $event->setResponse($this->catchException('tickets',$exception->getMessage()));
 
         }else {
             return false;
