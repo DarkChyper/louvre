@@ -35,7 +35,7 @@ class LouvreMailer
      */
     public function sendTickets(Order $order){
 
-        $message = (new \Swift_Message("Vos billets du Louvres."));
+        $message = (new \Swift_Message("Vos billets du Louvre."));
 
         $logo = $message->embed(\Swift_Image::fromPath('images/louvre_logo_mail.jpg'));
         $body = $this->twig->render('mail\tickets.html.twig', array('order' => $order, 'logo' => $logo));
