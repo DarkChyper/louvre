@@ -52,6 +52,14 @@ class PaymentController extends Controller
 
         return new RedirectResponse($this->generateUrl('homepage'));
     }
+
+    /**
+     * @Route("/qrcode", name="qrcode")
+     * @Method({"GET"})
+     */
+    public function qrCodeAction(){
+
+    }
 }
 
 

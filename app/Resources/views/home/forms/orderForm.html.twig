@@ -1,7 +1,7 @@
 {# app/Resources/views/home/forms/orderForm.html.twig #}
 
 {{ form_start(orderForm) }}
-<div class="col s12 m6 grey darken-1" id="home_col_form">
+<div class="col s12 m12 l6 grey darken-1" id="home_col_form">
 
     {% if form_errors(orderForm) != null %}
         <div class="card card-error center">
@@ -54,6 +54,7 @@
     <div class="line_form">
         <h3 class="center">Nombre de billet</h3>
         <hr />
+        <div class="center">Veuillez comptabiliser chaque personne accédant au musée,<br />enfants en bas âge inclus.</div>
 
         {% if form_errors(orderForm.ticketNumber) != null  %}
             <div class="card card-error center">
