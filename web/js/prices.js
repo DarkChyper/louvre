@@ -30,11 +30,11 @@ function definePrice($foo,$ticketType){
     if($dateBirth.value !== 'undefined' && $dateBirth.value !== ''){
         var $age = defineAge($dateBirth.value);
 
-        if($age >= 4 && $age <= 12){
+        if($age >= 4 && $age < 12){
 
             $price = 8.00 * $quotient;
 
-        } else if($age > 12 && $age < 60 ){
+        } else if($age => 12 && $age < 60 ){
 
             $price = 16.00 * $quotient;
 
