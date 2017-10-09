@@ -1,0 +1,213 @@
+/* BODY */
+body{
+    color: white;
+    /*background-image: url(../images/bg_desktop.jpg);*/
+
+    background-image: url("../images/bg_phone.png");
+    background-repeat: repeat-x;
+    #background-size: 100%;
+}
+
+th span{
+    color: black !important;
+}
+
+.invisible{
+    display: none;
+}
+
+.bgBlue, .bgBlue:hover{
+    background-color: #23C0D7;
+}
+
+.row {
+    margin-bottom: 0 !important;
+}
+
+.card-success, .card-success:hover{
+    background-color: #4CAF50 !important;
+}
+
+.card-error, .card-error:hover{
+    background-color: #c82d00 !important;
+}
+
+.card-info, .card-info:hover{
+    background-color: #23C0D7 !important;
+}
+
+.card-warning, .card-warning:hover{
+    background-color: #FFB300 !important;
+}
+
+.txt-red{
+    color: #c82d00;
+}
+
+a, a:visited{
+    color: #c82d00 !important;
+}
+
+a:hover{
+    color: #23C0D7 !important;
+}
+.txt-blue{
+    color: #23C0D7;
+}
+
+.txt-big{
+    font-size: xx-large;
+}
+
+.border-dark-red{
+    border: solid 4px #331107 !important;
+}
+
+.padded{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+hr{
+    width: 25%;
+    line-height: 1 !important;
+    border: 0;
+    height: 1px;
+    color: white;
+    background-color: white;
+    margin-bottom: 2em !important;
+}
+
+hr.full{
+    width: 100% !important;
+    background-color: grey !important;
+}
+
+hr.before-footer{
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+    height:2px;
+    width: 100% !important;
+    background-color: #c82d00 !important;
+}
+
+input, select{
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 60% !important;
+    background-color: rgba(255,255,255,0.1) !important;
+}
+
+input:focus{
+    border-bottom: solid 3px #23C0D7 !important;
+}
+
+input:not(empty), input:valid, input:checked{
+    border-bottom: solid 2px #23C0D7 !important;
+    -webkit-box-shadow: 0 0px 0 0 #23C0D7 !important;
+    box-shadow: 0 0px 0 0 #23C0D7 !important;
+
+
+}
+
+
+select{
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: solid 2px #23C0D7 !important;
+    color: black !important;
+
+}
+
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    width: 45% !important;
+    float: left !important;
+}
+
+label{
+    color:white !important;
+}
+
+[type="radio"]:disabled+label{
+    color: darkgrey !important;
+    font-style: italic !important;
+}
+
+[type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
+    background-color: #23C0D7 !important;
+}
+
+[type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after{
+    border: 2px solid #23C0D7 !important;
+}
+
+[type="radio"]:checked + label::before, .with-gap[type="radio"]:checked + label::before {
+    background-color: #23C0D7 !important;
+}
+
+[type="radio"]:checked + label::before, .with-gap[type="radio"]:checked + label::before, .with-gap[type="radio"]:checked + label::before{
+    border: 2px solid #23C0D7 !important;
+}
+
+.line_form{
+    display: block;
+    margin: auto;
+    min-height: 180px;
+}
+
+.line_form+.line_form{
+    margin-top: 1em !important;
+}
+
+.stripe-button-el {
+    margin-bottom: 1em !important;
+}
+
+h3{
+    font-size: 2rem !important;
+}
+
+/* Header */
+#logo {
+    margin: auto;
+    padding: 1em 0em;
+}
+
+
+
+/* HOME */
+#order_ticketType_0{
+    display: block !important;
+}
+
+img.spaced{
+    margin-top: 1em !important;
+}
+
+h2{
+    font-size: 2.5rem !important;
+    line-height: 80% !important;
+    margin: 1rem 0 !important;
+}
+
+/* smartphones*/
+@media only screen and (max-width: 600px) {
+    body {
+        background-image: url("../images/bg_phone.png");
+        background-size: cover;
+    }
+}
+
+
+@media only screen and (max-width: 992px) {
+
+    h2{
+        font-size: 3.56rem !important;
+        line-height: 110% !important;
+        margin: 1.78rem 0 1.424rem 0 !important;
+    }
+
+
+}

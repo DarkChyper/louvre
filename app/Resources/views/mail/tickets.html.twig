@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vos billets pour le Louvre !</title>
+</head>
+<p><img src="{{ logo }}" alt="logo musée du louvre" /></p>
+
+<p>Bonjour,</p>
+
+<p>Vous venez d'effectuer un achat sur louvre.simon-lhoir.fr et nous vous en remercions.</p>
+
+<p>Voici un récapitulatif de votre commande : </p>
+
+<p>{{ order.ticketNumber }} billet·s {% if order.ticketType == "HALF" %}demi-{% endif %}journée pour le {{ order.visitDate|date("d/m/Y") }}</p>
+<p>----</p>
+{% for ticket in order.tickets %}
+    <p>{{ ticket.fname }} {{ ticket.name }} {{ ticket.country }} {{ ticket.birth|date("d/m/Y") }} : {{ ticket.price }}€ <br />
+        {% if ticket.discount %}<br />Un justificatif sera nécessaire pour valider l'entrée du musée {% endif %}
+    </p>
+{% endfor %}
+<p>----</p>
+<p>Pour un total de {{ order.totalPrice }}€</p>
+
+<p>Le numéro de réservation est le {{ order.bookingCode }}, il est nécessaire pour entrer dans le musée.</p>
+
+<p> <img src="{{ qrcode_data_uri(order.bookingCode, { writer: 'svg', size: 150 }) }}" /></p>
+<p></p>
+<p>Cordialement,</p>
+<p>L'équipe du musée.</p>
+
+
+
+

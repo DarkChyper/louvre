@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Ticket
  *
- * @ORM\Table(name="ticket")
+ * @ORM\Table(name="tickets")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TicketRepository")
  */
 class Ticket
@@ -31,18 +31,10 @@ class Ticket
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="tickets")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      *
      */
     protected $order;
-
-    /**
-     * @var string
-     * @ORM\Column(name="type", type="string", length=4)
-     * @Assert\NotBlank()
-     *
-     */
-    protected $type;
 
     /**
      * @var string
@@ -69,9 +61,26 @@ class Ticket
      * @var \DateTime
      *
      * @ORM\Column(name="birth", type="date", nullable=false)
+     * @Assert\NotBlank()
      * @Assert\Date(message="La date doit être au format JJ/MM/YYYY")
+     * @Assert\LessThan(value="tomorrow",message="La date de naissance ne peut être future.")
      */
     protected $birth;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="integer")
+     *
+     */
+    protected $price;
+
+    /**
+     * @var string
+     * @ORM\Column(name="category", type="string", length=3)
+     * @Assert\NotBlank();
+     */
+    protected $category;
 
     /**
     * @var int
@@ -87,6 +96,7 @@ class Ticket
      */
     public function __construct()
     {
+        $this->price= 0;
     }
 
     /**
@@ -119,22 +129,6 @@ class Ticket
     public function setOrder($order)
     {
         $this->order = $order;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 
     /**
@@ -217,4 +211,40 @@ class Ticket
         $this->discount = $discount;
     }
 
+    /**
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+
+
 }
+
+

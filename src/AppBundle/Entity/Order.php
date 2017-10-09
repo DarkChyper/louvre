@@ -7,14 +7,19 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as LouvreAssert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 
 /**
  * Order
  *
- * @ORM\Table(name="order")
+ * @ORM\Table(name="orders")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrderRepository")
+ * @LouvreAssert\EnoughTickets
  */
 class Order
 {
@@ -32,6 +37,9 @@ class Order
      *
      * @ORM\Column(name="visit_date", type="date", nullable=false)
      * @Assert\Date(message="La date doit être au format JJ/MM/YYYY")
+     * @Assert\GreaterThan(value="yesterday",message="Il n'est pas possible d'acheter un billet pour une date passée.")
+     * @LouvreAssert\AvailableVisitDay
+     * @LouvreAssert\NotPublicHollidayInFrance
      */
     protected $visitDate;
 
@@ -61,7 +69,15 @@ class Order
     protected $ticketNumber;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="order")
+     * @var string
+     * @ORM\Column(name="ticket_type", type="string", length=4)
+     * @Assert\NotBlank()
+     *
+     */
+    protected $ticketType;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="order",cascade={"persist"})
      */
     protected $tickets;
 
@@ -79,10 +95,19 @@ class Order
     protected $bookingCode;
 
     /**
+     * @var int
+     * @ORM\Column(name="used", type="integer")
+     *
+     */
+    protected $used;
+
+    /**
      * Order constructor.
      */
     public function __construct()
     {
+        $this->tickets = new ArrayCollection();
+        $this->used = 0; // tickets are not used
     }
 
     /**
@@ -166,6 +191,22 @@ class Order
     }
 
     /**
+     * @return string
+     */
+    public function getTicketType()
+    {
+        return $this->ticketType;
+    }
+
+    /**
+     * @param string $ticketType
+     */
+    public function setTicketType($ticketType)
+    {
+        $this->ticketType = $ticketType;
+    }
+
+    /**
      * @return mixed
      */
     public function getTickets()
@@ -213,8 +254,21 @@ class Order
         $this->bookingCode = $bookingCode;
     }
 
+    /**
+     * @return int
+     */
+    public function getUsed()
+    {
+        return $this->used;
+    }
 
-
+    /**
+     * @param int $used
+     */
+    public function setUsed($used)
+    {
+        $this->used = $used;
+    }
 
     /**
      * Add ticket
@@ -225,6 +279,7 @@ class Order
      */
     public function addTicket(\AppBundle\Entity\Ticket $ticket)
     {
+        $ticket->setOrder($this);
         $this->tickets[] = $ticket;
 
         return $this;
@@ -238,6 +293,21 @@ class Order
     public function removeTicket(\AppBundle\Entity\Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        $today = new \DateTime("now");
+        $time = $today->format('H');
+        $today->setTime(0, 0, 0);
+
+        if($this->getVisitDate() == $today && $time >=14 && $this->getTicketType() == 'FULL'){
+            $context->buildViolation('Il n\'est pas possible de réserver un billet pour la journée complète après 14h00.')
+                ->addViolation();
+        }
     }
 }
 
